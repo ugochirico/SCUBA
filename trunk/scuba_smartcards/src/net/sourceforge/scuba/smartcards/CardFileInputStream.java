@@ -120,11 +120,11 @@ public class CardFileInputStream extends InputStream {
 	 * 
 	 * @return the length of the underlying card file.
 	 */
-	public int getFileLength() {
+	public int getLength() {
 		return fileLength;
 	}
 
-	public int getFilePos() {
+	public int getPostion() {
 		return offsetBufferInFile + offsetInBuffer;
 	}
 
