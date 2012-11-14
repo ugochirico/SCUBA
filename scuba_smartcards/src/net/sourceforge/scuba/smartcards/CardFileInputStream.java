@@ -140,8 +140,7 @@ public class CardFileInputStream extends InputStream {
 	 * 
 	 * @return the contents of the file.
 	 */
-	private int fillBufferFromFile(FileInfo[] path, int offsetInFile, int le)
-			throws CardServiceException {
+	private int fillBufferFromFile(FileInfo[] path, int offsetInFile, int le) throws CardServiceException {
 		synchronized (fs) {
 			if (le > buffer.length) {
 				throw new IllegalArgumentException("length too big");

@@ -67,4 +67,7 @@ public class DummyAcceptingCardService extends CardService {
         return response;
     }
 
+    public byte[] getATR() {
+    	return null; // FIXME
+    }
 }

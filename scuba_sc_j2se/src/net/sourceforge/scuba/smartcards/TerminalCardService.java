@@ -93,8 +93,7 @@ public class TerminalCardService extends CardService {
 			if (channel == null) {
 				throw new CardServiceException("channel == null");
 			}
-			javax.smartcardio.CommandAPDU command = 
-					new javax.smartcardio.CommandAPDU(ourCommandAPDU.getBytes());
+			javax.smartcardio.CommandAPDU command = new javax.smartcardio.CommandAPDU(ourCommandAPDU.getBytes());
 			javax.smartcardio.ResponseAPDU response = channel.transmit(command);
 			ResponseAPDU ourResponseAPDU = new ResponseAPDU(response.getBytes());
 			notifyExchangedAPDU(++apduCount, ourCommandAPDU, ourResponseAPDU);
@@ -104,6 +103,11 @@ public class TerminalCardService extends CardService {
 			ce.printStackTrace();
 			throw new CardServiceException(ce.toString());
 		}
+	}
+	
+	public byte[] getATR() {
+		javax.smartcardio.ATR atr = channel.getCard().getATR();
+		return atr.getBytes();
 	}
 
 	/**
