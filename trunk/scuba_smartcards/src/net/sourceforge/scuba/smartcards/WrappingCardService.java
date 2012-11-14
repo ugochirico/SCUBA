@@ -58,6 +58,10 @@ public class WrappingCardService extends CardService {
 			return service.transmit(capdu);
 		}
 	}
+	
+	public byte[] getATR() throws CardServiceException {
+		return service.getATR();
+	}
 
 	public void close() {
 		service.close();

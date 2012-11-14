@@ -158,6 +158,8 @@ public abstract class CardService implements Serializable {
 	 */
 	public abstract ResponseAPDU transmit(CommandAPDU apdu) throws CardServiceException;
 
+	public abstract byte[] getATR() throws CardServiceException;
+	
 	/**
 	 * Closes the session with the card. Disconnects from the card and reader.
 	 * Notifies any interested apduListeners.
