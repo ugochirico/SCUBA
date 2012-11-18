@@ -105,6 +105,10 @@ public class IsoDepCardService extends CardService {
         }
     }
 
+    public byte[] getATR() {
+    	return null; // FIXME
+    }
+    
 	/**
 	 * Closes the session with the card.
 	 */
