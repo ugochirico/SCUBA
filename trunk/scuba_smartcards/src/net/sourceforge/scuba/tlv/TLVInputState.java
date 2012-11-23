@@ -126,7 +126,7 @@ class TLVInputState implements Cloneable {
 	
 	public void setLengthProcessed(int length, int byteCount) {
 		if (length < 0) {
-			throw new IllegalArgumentException("Cannot set negative length (length = " + length + ").");
+			throw new IllegalArgumentException("Cannot set negative length (length = " + length + ", 0x" + Integer.toHexString(length) + " for tag " + Integer.toHexString(getTag()) + ").");
 		}
 		TLStruct obj = state.pop();
 		if (!state.isEmpty()) {
