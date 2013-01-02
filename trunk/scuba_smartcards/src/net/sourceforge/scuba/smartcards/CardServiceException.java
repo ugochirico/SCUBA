@@ -58,11 +58,18 @@ public class CardServiceException extends Exception {
 		return serialVersionUID;
 	}
 
+	public String getMessage() {
+		if (sw == -1) {
+			return super.getMessage();
+		} else {
+			return super.getMessage() + " (SW = 0x" + Integer.toHexString(sw) + ")";
+		}
+	}
+
 	/**
 	 * @return The status word that caused this exception
 	 */
 	public int getSW() {
 		return sw;
 	}
-
 }
