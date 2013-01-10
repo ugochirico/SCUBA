@@ -8,34 +8,42 @@
   </target>
 
   <target name="distclean" depends="clean">
-    <delete file="${jar.library.dir}/{jar.library.archive}" />
-    <delete file="${jar.source.dir}/{jar.source.archive}" />
+    <delete file="${jar.development.dir}/${jar.development.archive}" />
+    <delete file="${jar.library.dir}/${jar.library.archive}" />
+    <delete file="${jar.source.dir}/${jar.source.archive}" />
   </target>
 
   <target name="compile">
     <mkdir dir="${bin.dir}" />
     <javac destdir="${bin.dir}" includeantruntime="false">
        <src path="${src.util.dir}" />
-       <src path="${src.util.j2se.dir}" />
        <src path="${src.smartcards.dir}" />
        <src path="${src.smartcards.j2se.dir}" />
     </javac>
   </target>
 
-  <target name="archive" depends="compile">
+  <target name="archive">
     <jar destfile="${jar.source.dir}/${jar.source.archive}">
       <fileset dir="${src.util.dir}" />
-      <fileset dir="${src.util.j2se.dir}" />
       <fileset dir="${src.smartcards.dir}" />
       <fileset dir="${src.smartcards.j2se.dir}" />
     </jar>
   </target>
 
+  <target name="development" depends="compile">
+    <jar destfile="${jar.development.dir}/${jar.development.archive}">
+      <fileset dir="${bin.dir}" />
+      <fileset dir="${src.util.dir}" />
+      <fileset dir="${src.smartcards.dir}" />
+      <fileset dir="${src.smartcards.j2se.dir}" />
+    </jar>
+  </target>
+  
   <target name="library" depends="compile">
     <jar destfile="${jar.library.dir}/${jar.library.archive}">
       <fileset dir="${bin.dir}" />
     </jar>
   </target>
   
-  <target name="all" depends="archive,library" />
+  <target name="all" depends="archive,development,library" />
 </project>
