@@ -120,8 +120,7 @@ public abstract class CardService implements Serializable {
 	 */
 	protected void notifyExchangedAPDU(int count, CommandAPDU capdu, ResponseAPDU rapdu) {
 		for (APDUListener listener: apduListeners) {
-			listener.exchangedAPDU(
-					new APDUEvent(this, "RAW", count, capdu, rapdu));
+			listener.exchangedAPDU(new APDUEvent(this, "RAW", count, capdu, rapdu));
 		}
 	}
 
@@ -160,6 +159,10 @@ public abstract class CardService implements Serializable {
 	public abstract ResponseAPDU transmit(CommandAPDU apdu) throws CardServiceException;
 
 	public abstract byte[] getATR() throws CardServiceException;
+	
+	public boolean isExtendedAPDULengthSupported() {
+		return false;
+	}
 	
 	/**
 	 * Closes the session with the card. Disconnects from the card and reader.

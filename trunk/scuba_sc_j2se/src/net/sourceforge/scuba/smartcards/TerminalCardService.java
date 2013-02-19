@@ -109,6 +109,10 @@ public class TerminalCardService extends CardService {
 		javax.smartcardio.ATR atr = channel.getCard().getATR();
 		return atr.getBytes();
 	}
+	
+	public boolean isExtendedAPDULengthSupported() {
+		return true; // FIXME: check ATR to see if really true
+	}
 
 	/**
 	 * Sends a control command to the terminal
@@ -127,7 +131,7 @@ public class TerminalCardService extends CardService {
 			throw new CardServiceException(ce.toString());
 		}
 	}
-
+	
 	/**
 	 * Closes the session with the card.
 	 */

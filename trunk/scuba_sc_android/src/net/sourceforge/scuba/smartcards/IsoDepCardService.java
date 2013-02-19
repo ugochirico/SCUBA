@@ -109,6 +109,10 @@ public class IsoDepCardService extends CardService {
     	return null; // FIXME
     }
     
+	public boolean isExtendedAPDULengthSupported() {
+		return false; /* FIXME, from API 14 and up we can ask ISODep!! */
+	}
+	
 	/**
 	 * Closes the session with the card.
 	 */
