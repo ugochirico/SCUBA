@@ -102,9 +102,11 @@ public class CardFileInputStream extends InputStream {
 			if (n < (bufferLength - offsetInBuffer)) {
 				offsetInBuffer += n;
 			} else {
-				int absoluteOffset = offsetBufferInFile + offsetInBuffer;
-				offsetBufferInFile = (int) (absoluteOffset + n); /* FIXME: shouldn't we check for EOF? We know fileLength... */
+				int offsetInFile = offsetBufferInFile + offsetInBuffer;
+				offsetBufferInFile = (int) (offsetInFile + n); /* FIXME: shouldn't we check for EOF? We know fileLength... */
 				offsetInBuffer = 0;
+				bufferLength = 0;
+				offsetInFile = offsetBufferInFile + offsetInBuffer;
 			}
 			return n;
 		}
@@ -115,7 +117,9 @@ public class CardFileInputStream extends InputStream {
 	}
 
 	public void mark(int readLimit) {
-		markedOffset = offsetBufferInFile + offsetInBuffer;
+		synchronized(fs) {
+			markedOffset = offsetBufferInFile + offsetInBuffer;
+		}
 	}
 
 	public void reset() throws IOException {
