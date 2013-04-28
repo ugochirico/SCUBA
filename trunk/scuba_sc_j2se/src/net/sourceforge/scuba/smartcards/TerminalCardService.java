@@ -104,13 +104,15 @@ public class TerminalCardService extends CardService {
 			throw new CardServiceException(ce.toString());
 		}
 	}
-	
+
 	public byte[] getATR() {
 		javax.smartcardio.ATR atr = channel.getCard().getATR();
 		return atr.getBytes();
 	}
-	
+
 	public boolean isExtendedAPDULengthSupported() {
+//		javax.smartcardio.ATR atr = channel.getCard().getATR();
+//		byte[] historicalBytes = atr.getHistoricalBytes();		
 		return true; // FIXME: check ATR to see if really true
 	}
 
