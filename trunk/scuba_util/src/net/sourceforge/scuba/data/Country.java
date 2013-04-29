@@ -1,22 +1,23 @@
-/* 
+/*
  * This file is part of the SCUBA smart card framework.
- * 
- * SCUBA is free software: you can redistribute it and/or modify it under the 
- * terms of the GNU General Public License as published by the Free Software 
- * Foundation, either version 3 of the License, or (at your option) any later
- * version.
- * 
- * SCUBA is distributed in the hope that it will be useful, but WITHOUT ANY 
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
- * details.
- * 
- * You should have received a copy of the GNU General Public License along with
- * SCUBA. If not, see <http://www.gnu.org/licenses/>.
- * 
- * Copyright (C) 2009-2012 The SCUBA team.
- * 
- * $Id$
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ *
+ * Copyright (C) 2009-2013 The SCUBA team.
+ *
+ * $Id: $
  */
 
 package net.sourceforge.scuba.data;
@@ -28,13 +29,23 @@ import java.util.List;
 
 /**
  * Generic country data type.
+ * See {@link ISOCountry} and {@link TestCountry} for concrete implementations.
  * 
  * @author Martijn Oostdijk (martijn.oostdijk@gmail.com)
+ * 
+ * @version $Revision: $
  */
 public abstract class Country {
 
 	private static final Class<?>[] SUB_CLASSES = { ISOCountry.class, TestCountry.class };
 
+	/**
+	 * Gets a country given a country code.
+	 * 
+	 * @param code an ISO 3166 code
+	 * 
+	 * @return a country
+	 */
 	public static Country getInstance(int code) {
 		for (Country country: values()) {
 			if (country.valueOf() == code) { return country; }
@@ -42,6 +53,13 @@ public abstract class Country {
 		throw new IllegalArgumentException("Illegal country code" + Integer.toHexString(code));
 	}
 
+	/**
+	 * Gets a country given a two or three letter code.
+	 * 
+	 * @param code an alpha code
+	 * 
+	 * @return a country
+	 */
 	public static Country getInstance(String code) {
 		if (code == null) { throw new IllegalArgumentException("Illegal country code"); }
 		code = code.trim();
@@ -52,6 +70,11 @@ public abstract class Country {
 		}
 	}
 
+	/**
+	 * All countries.
+	 * 
+	 * @return an array containing all countries
+	 */
 	public static Country[] values() {
 		List<Country> result = new ArrayList<Country>();
 		for (Class<?> subClass: SUB_CLASSES) {
@@ -69,6 +92,11 @@ public abstract class Country {
 		return values;
 	}
 
+	/**
+	 * Gets the numerical value (the code) of this country.
+	 * 
+	 * @return the numerical value
+	 */
 	public abstract int valueOf();
 
 	/**
