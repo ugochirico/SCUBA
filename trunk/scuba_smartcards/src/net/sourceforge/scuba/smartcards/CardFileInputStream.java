@@ -54,7 +54,7 @@ public class CardFileInputStream extends InputStream {
 		this.fs = fs;
 		synchronized(fs) {
 			FileInfo[] fsPath = fs.getSelectedPath();
-			if (fsPath == null || fsPath.length < 1) { throw new CardServiceException("No valid file selected"); }
+			if (fsPath == null || fsPath.length < 1) { throw new CardServiceException("No valid file selected, path = " + fsPath); }
 			this.path = new FileInfo[fsPath.length];
 			System.arraycopy(fsPath, 0, this.path, 0, fsPath.length);
 			fileLength = fsPath[fsPath.length - 1].getFileLength();
