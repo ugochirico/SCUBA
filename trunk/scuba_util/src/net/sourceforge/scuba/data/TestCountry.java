@@ -32,12 +32,13 @@ package net.sourceforge.scuba.data;
 public class TestCountry extends Country {
 
 	/** Utopia. */
-	public static final TestCountry UT = new TestCountry(-1, "UT", "UTO", "Utopia");
+	public static final TestCountry UT = new TestCountry(-1, "UT", "UTO", "Utopia", "Utopian");
 
 	private int code;
 	private String alpha2Code;
 	private String alpha3Code;
 	private String name;
+	private String nationality;
 
 	private static final TestCountry[] VALUES = { UT };
 	
@@ -48,11 +49,12 @@ public class TestCountry extends Country {
 	private TestCountry() {
 	}
 	
-	private TestCountry(int code, String alpha2Code, String alpha3Code, String name) {
+	private TestCountry(int code, String alpha2Code, String alpha3Code, String name, String nationality) {
 		this.code = code;
 		this.alpha2Code = alpha2Code;
 		this.alpha3Code = alpha3Code;
 		this.name = name;
+		this.nationality = nationality;
 	}
 	
 	public int valueOf() {
@@ -61,6 +63,10 @@ public class TestCountry extends Country {
 
 	public String getName() {
 		return name;
+	}
+	
+	public String getNationality() {
+		return nationality;
 	}
 
 	public String toAlpha2Code() {
