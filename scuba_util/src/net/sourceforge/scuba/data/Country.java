@@ -107,6 +107,13 @@ public abstract class Country {
 	public abstract String getName();
 
 	/**
+	 * Gets the adjectival form corresponding to the country.
+	 * 
+	 * @return the nationality
+	 */
+	public abstract String getNationality();
+	
+	/**
 	 * Gets the two-digit country code.
 	 * 
 	 * @return a two-digit country code
