@@ -90,7 +90,10 @@ public class CardFileInputStream extends InputStream {
 					bufferLength = fillBufferFromFile(path, offsetBufferInFile, le);
 				} catch (CardServiceException cse) {
 					throw new IOException(cse.toString());
+				} catch (Exception e) {
+					throw new IOException("DEBUG: Unexpected Exception: " + e.getMessage());
 				}
+				
 			}
 			int result = buffer[offsetInBuffer] & 0xFF;
 			offsetInBuffer++;

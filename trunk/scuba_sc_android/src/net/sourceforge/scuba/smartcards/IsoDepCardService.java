@@ -91,18 +91,22 @@ public class IsoDepCardService extends CardService {
 	 * @return the response from the card, including the status word
 	 * @throws CardServiceException - if the card operation failed 
 	 */
-    public ResponseAPDU transmit(CommandAPDU ourCommandAPDU) 
-    throws CardServiceException {
+    public ResponseAPDU transmit(CommandAPDU ourCommandAPDU) throws CardServiceException {
         try {
         	if (!nfc.isConnected()) {
-        		throw new CardServiceException("not connected");
+        		throw new CardServiceException("Not connected");
         	}
-        	ResponseAPDU ourResponseAPDU = new ResponseAPDU(
-        			nfc.transceive(ourCommandAPDU.getBytes()));
+        	byte[] responseBytes = nfc.transceive(ourCommandAPDU.getBytes());
+        	if (responseBytes == null || responseBytes.length < 2) {
+        		throw new CardServiceException("Failed response");
+        	}
+        	ResponseAPDU ourResponseAPDU = new ResponseAPDU(responseBytes);
 			notifyExchangedAPDU(++apduCount, ourCommandAPDU, ourResponseAPDU);
 			return ourResponseAPDU;
         } catch (IOException e) {
-            throw new CardServiceException("could not transmit");
+            throw new CardServiceException(e.getMessage());
+        } catch (Exception e) {
+        	throw new CardServiceException(e.getMessage());
         }
     }
 
