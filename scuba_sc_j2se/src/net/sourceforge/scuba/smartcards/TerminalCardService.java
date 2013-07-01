@@ -88,8 +88,7 @@ public class TerminalCardService extends CardService {
 	 * @return the response from the card, including the status word
 	 * @throws CardServiceException - if the card operation failed 
 	 */
-	public ResponseAPDU transmit(CommandAPDU ourCommandAPDU) 
-	throws CardServiceException {
+	public ResponseAPDU transmit(CommandAPDU ourCommandAPDU) throws CardServiceException {
 		try {
 			if (channel == null) {
 				throw new CardServiceException("channel == null");
@@ -101,7 +100,6 @@ public class TerminalCardService extends CardService {
 			lastActiveTime = System.currentTimeMillis();
 			return ourResponseAPDU;
 		} catch (CardException ce) {
-			ce.printStackTrace();
 			throw new CardServiceException(ce.toString());
 		}
 	}
