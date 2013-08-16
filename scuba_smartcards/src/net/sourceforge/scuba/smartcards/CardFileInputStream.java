@@ -68,14 +68,14 @@ public class CardFileInputStream extends InputStream {
 
 	public int read() throws IOException {
 		synchronized(fs) {
-			if (!Arrays.equals(path, fs.getSelectedPath())) {
-				try {
+			try {
+				if (!Arrays.equals(path, fs.getSelectedPath())) {
 					for (FileInfo fileInfo: path) { fs.selectFile(fileInfo.getFID()); }
-				} catch (CardServiceException cse) {
-					/* ERROR: selecting proper path failed. */
-					cse.printStackTrace();
-					return 0; // FIXME: proper error handling here
-				}
+				}	
+			} catch (CardServiceException cse) {
+				/* ERROR: selecting proper path failed. */
+				cse.printStackTrace();
+				throw new IOException(cse.getMessage()); // FIXME: proper error handling here
 			}
 
 			int offsetInFile = offsetBufferInFile + offsetInBuffer;
@@ -93,7 +93,7 @@ public class CardFileInputStream extends InputStream {
 				} catch (Exception e) {
 					throw new IOException("DEBUG: Unexpected Exception: " + e.getMessage());
 				}
-				
+
 			}
 			int result = buffer[offsetInBuffer] & 0xFF;
 			offsetInBuffer++;
@@ -169,7 +169,7 @@ public class CardFileInputStream extends InputStream {
 	 * @return the contents of the file.
 	 */
 	private int fillBufferFromFile(FileInfo[] path, int offsetInFile, int le) throws CardServiceException {
-		synchronized (fs) {
+		synchronized(fs) {
 			if (le > buffer.length) {
 				throw new IllegalArgumentException("length too big");
 			}

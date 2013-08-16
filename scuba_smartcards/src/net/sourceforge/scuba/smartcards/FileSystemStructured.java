@@ -54,5 +54,5 @@ public interface FileSystemStructured {
 	 * 
 	 * @return a path of file identifiers or <code>null</code>.
 	 */
-	FileInfo[] getSelectedPath();
+	FileInfo[] getSelectedPath() throws CardServiceException;
 }
