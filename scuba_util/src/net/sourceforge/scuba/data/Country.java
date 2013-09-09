@@ -37,7 +37,7 @@ import java.util.List;
  */
 public abstract class Country {
 
-	private static final Class<?>[] SUB_CLASSES = { ISOCountry.class, TestCountry.class };
+	private static final Class<?>[] SUB_CLASSES = { UnicodeCountry.class, ISOCountry.class, TestCountry.class };
 
 	/**
 	 * Gets a country given a country code.
