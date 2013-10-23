@@ -85,15 +85,18 @@ public class CardFileInputStream extends InputStream {
 			if (offsetInBuffer >= bufferLength) {
 				int le = Math.min(buffer.length, fileLength - offsetInFile);
 				try {
-					offsetBufferInFile += bufferLength;
-					offsetInBuffer = 0;
-					bufferLength = fillBufferFromFile(path, offsetBufferInFile, le);
+					/* NOTE: using tmp variables here, in case fill throws an exception (which we don't catch). */
+					int newOffsetBufferInFile = offsetBufferInFile + bufferLength;
+					int newOffsetInBuffer = 0;
+					int newBufferLength = fillBufferFromFile(path, newOffsetBufferInFile, le);
+					offsetBufferInFile = newOffsetBufferInFile;
+					offsetInBuffer = newOffsetInBuffer;
+					bufferLength = newBufferLength;
 				} catch (CardServiceException cse) {
 					throw new IOException(cse.toString());
 				} catch (Exception e) {
 					throw new IOException("DEBUG: Unexpected Exception: " + e.getMessage());
 				}
-
 			}
 			int result = buffer[offsetInBuffer] & 0xFF;
 			offsetInBuffer++;
