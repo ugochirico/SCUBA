@@ -76,45 +76,25 @@ public class ACR122TerminalFactorySpi extends TerminalFactorySpi {
     POLL_ACK = 0x4B,
     RESP_BYTE_OK = 0x00;
     
-    private static final byte[] READER_ID = new byte[] { ACR_CLA, 0x00, 0x48,
-            0x00, 0x00 };
-
-    private static final byte[] POLL_COMMAND_A = new byte[] { ACR_BYTE, 0x4A,
-            0x01, 0x00 };
-
-    private static final byte[] POLL_COMMAND_B = new byte[] { ACR_BYTE, 0x4A,
-        0x01, 0x03, 0x00 };
-
-    private static final byte[] ANTENNA_OFF = new byte[] { ACR_BYTE, 0x32,
-            0x01, 0x00 };
-
-    private static final byte[] TIMEOUT_ONE = new byte[] { ACR_BYTE, 0x32,
-            0x05, 0x00, 0x00, 0x00 };
-
+    private static final byte[] READER_ID = new byte[] { ACR_CLA, 0x00, 0x48, 0x00, 0x00 };
+    private static final byte[] POLL_COMMAND_A = new byte[] { ACR_BYTE, 0x4A, 0x01, 0x00 };
+    private static final byte[] POLL_COMMAND_B = new byte[] { ACR_BYTE, 0x4A, 0x01, 0x03, 0x00 };
+    private static final byte[] ANTENNA_OFF = new byte[] { ACR_BYTE, 0x32, 0x01, 0x00 };
+    private static final byte[] TIMEOUT_ONE = new byte[] { ACR_BYTE, 0x32, 0x05, 0x00, 0x00, 0x00 };
     private static final byte[] DESELECT = new byte[] { ACR_BYTE, 0x44, 0x01 };
-
-    private static final byte[] BAUD_424 = new byte[] { ACR_BYTE, 0x4E, 0x01,
-            0x02, 0x02 };
-
+    private static final byte[] BAUD_424 = new byte[] { ACR_BYTE, 0x4E, 0x01, 0x02, 0x02 };
     private static final byte[] LEVEL4_OFF = new byte[] { ACR_BYTE, 0x12, 0x24 };
+    private static final byte[] RATS = new byte[] { ACR_BYTE, RAW_SEND, (byte) 0xE0, 0x51 };
+    private static final byte[] PING = new byte[] { ACR_BYTE, RAW_SEND, (byte) 0xB0, 0x01 };
 
-    private static final byte[] RATS = new byte[] { ACR_BYTE, RAW_SEND,
-            (byte) 0xE0, 0x51 };
-
-    private static final byte[] PING = new byte[] { ACR_BYTE, RAW_SEND,
-            (byte) 0xB0, 0x01 };
-
-    private static final byte[] ACK = new byte[] { ACR_BYTE, RAW_SEND,
-            (byte) 0xA0, 0x01 };
+    private static final byte[] ACK = new byte[] { ACR_BYTE, RAW_SEND, (byte) 0xA0, 0x01 };
 
     // These are not used at the moment:
-    private static final byte[] ANTENNA_ON = new byte[] { ACR_BYTE, 0x32, 0x01,
-            0x01 };
+    private static final byte[] ANTENNA_ON = new byte[] { ACR_BYTE, 0x32, 0x01, 0x01 };
 
     private static final byte[] LEVEL4_ON = new byte[] { ACR_BYTE, 0x12, 0x34 };
 
-    private static final byte[] BAUD_212 = new byte[] { ACR_BYTE, 0x4E, 0x01,
-            0x01, 0x01 };
+    private static final byte[] BAUD_212 = new byte[] { ACR_BYTE, 0x4E, 0x01, 0x01, 0x01 };
 
     /** Wraps a command to be sent to the ACR terminal with FF 00 00 00 Len */
     private static byte[] ACRcommand(byte[] command) {
@@ -272,7 +252,7 @@ public class ACR122TerminalFactorySpi extends TerminalFactorySpi {
 
         /**
          * The sequence byte that is used in the ISO14443 protocol. Alternates
-         * between 0x0A and 0x0B. (Actuall it is a one bit the byte that
+         * between 0x0A and 0x0B. (Actually it is a one bit the byte that
          * alternates, but the rest of the byte never changes in our case.
          */
         private byte sequenceByte = (byte) 0x0a;
@@ -296,8 +276,7 @@ public class ACR122TerminalFactorySpi extends TerminalFactorySpi {
         private ACR122CardTerminal() {
             try {
                 TerminalFactory tf = TerminalFactory.getInstance("PC/SC", null, "SunPCSC");
-                for (CardTerminal terminal : tf.terminals().list(
-                        CardTerminals.State.CARD_PRESENT)) {
+                for (CardTerminal terminal : tf.terminals().list(CardTerminals.State.CARD_PRESENT)) {
                     debug("Terminal: " + terminal.getName());
                     if (!terminal.getName().contains("ACR122")
                     		/*
@@ -307,14 +286,15 @@ public class ACR122TerminalFactorySpi extends TerminalFactorySpi {
                         	 * 
                         	 * Is there some other way to positively identify a 122U? -- MO
                         	 */
-                    		&& !terminal.getName().contains(" CCID USB Reader")) {
+                    		&& !terminal.getName().contains(" CCID USB Reader")
+                    		&& !terminal.getName().contains(" ACR 38U-CCID")
+                    		) {
                         continue;
                     }
                     virtualCard = terminal.connect("T=0");
                     channel = virtualCard.getBasicChannel();
                     channel.transmit(new CommandAPDU(ACRcommand(ANTENNA_OFF)));
-                    byte[] res = channel.transmit(new CommandAPDU(READER_ID))
-                            .getBytes();
+                    byte[] res = channel.transmit(new CommandAPDU(READER_ID)).getBytes();
                     name = new String(res, 0, res.length - 2);
                     channel.transmit(new CommandAPDU(ACRcommand(TIMEOUT_ONE)));
                     channel.transmit(new CommandAPDU(ACRcommand(LEVEL4_OFF)));
@@ -511,8 +491,7 @@ public class ACR122TerminalFactorySpi extends TerminalFactorySpi {
                 System.arraycopy(res, index, uid, 0, uidLen);
                 index += uidLen;
                 channel.transmit(new CommandAPDU(ACRcommand(BAUD_424)));
-                res = channel.transmit(
-                        new CommandAPDU(ACRcommand(RATS))).getBytes();
+                res = channel.transmit(new CommandAPDU(ACRcommand(RATS))).getBytes();
                 index = 3;
                 ats = new byte[res[index++]];
                 System.arraycopy(res, index, ats, 0, ats.length);

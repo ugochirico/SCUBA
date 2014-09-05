@@ -40,6 +40,7 @@ public interface ISO7816 {
    static final byte OFFSET_CDATA = (byte)5;
 
    static final byte CLA_ISO7816 = (byte)0x00;
+   static final byte CLA_COMMAND_CHAINING = (byte)0x10;
 
    static final byte INVALIDATE_CHV = 0x04;
    static final byte INS_ERASE_BINARY = 0x0E;
