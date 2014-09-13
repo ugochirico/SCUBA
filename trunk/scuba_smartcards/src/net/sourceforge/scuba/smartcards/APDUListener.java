@@ -17,7 +17,7 @@
  *
  * Copyright (C) 2009-2013 The SCUBA team.
  *
- * $Id: $
+ * $Id$
  */
 
 package net.sourceforge.scuba.smartcards;
@@ -29,7 +29,7 @@ import java.util.EventListener;
  * 
  * @author Engelbert Hubbers (hubbers@cs.ru.nl)
  * @author Martijn Oostdijk (martijno@cs.ru.nl)
- * @version $Revision: 214 $
+ * @version $Revision$
  */
 public interface APDUListener extends EventListener {
 

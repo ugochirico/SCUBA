@@ -17,7 +17,7 @@
  *
  * Copyright (C) 2009-2013 The SCUBA team.
  *
- * $Id: $
+ * $Id$
  */
 
 package net.sourceforge.scuba.smartcards;
@@ -27,7 +27,7 @@ package net.sourceforge.scuba.smartcards;
  * 
  * @author Pim Vullers (pim@cs.ru.nl)
  *
- * @version $Revision: 207 $
+ * @version $Revision$
  */
 public class WrappingCardService extends CardService {
 

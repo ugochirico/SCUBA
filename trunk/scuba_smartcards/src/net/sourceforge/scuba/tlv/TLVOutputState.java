@@ -17,7 +17,7 @@
  *
  * Copyright (C) 2009-2013 The SCUBA team.
  *
- * $Id: $
+ * $Id$
  */
 
 package net.sourceforge.scuba.tlv;
@@ -35,7 +35,7 @@ import net.sourceforge.scuba.util.Hex;
  * 
  * @author Martijn Oostdijk (martijn.oostdijk@gmail.com)
  * 
- * @version $Revision: 183 $
+ * @version $Revision$
  */
 class TLVOutputState implements Cloneable
 {	
