@@ -17,7 +17,7 @@
  *
  * Copyright (C) 2009-2013 The SCUBA team.
  *
- * $Id: $
+ * $Id$
  */
 
 package net.sourceforge.scuba.tlv;
@@ -29,7 +29,7 @@ import java.util.Stack;
  * 
  * @author The SCUBA team
  * 
- * @version $Revision: 209 $
+ * @version $Revision$
  */
 class TLVInputState implements Cloneable {
 

@@ -17,7 +17,7 @@
  *
  * Copyright (C) 2009-2013 The SCUBA team.
  *
- * $Id: $
+ * $Id$
  */
 
 package net.sourceforge.scuba.tlv;
@@ -31,7 +31,7 @@ import java.io.OutputStream;
  * 
  * @author Martijn Oostdijk (martijn.oostdijk@gmail.com)
  * 
- * @version $Revision: 186 $
+ * @version $Revision$
  */
 public class TLVOutputStream extends OutputStream {
 

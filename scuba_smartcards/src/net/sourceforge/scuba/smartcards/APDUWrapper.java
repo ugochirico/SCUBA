@@ -17,7 +17,7 @@
  *
  * Copyright (C) 2009-2013 The SCUBA team.
  *
- * $Id: $
+ * $Id$
  */
 
 package net.sourceforge.scuba.smartcards;
@@ -28,7 +28,7 @@ package net.sourceforge.scuba.smartcards;
  * @author Cees-Bart Breunesse (ceesb@cs.ru.nl)
  * @author Martijn Oostdijk (martijno@cs.ru.nl)
  * 
- * @version $Revision: 203 $
+ * @version $Revision$
  */
 public interface APDUWrapper {
 

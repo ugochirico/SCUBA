@@ -17,7 +17,7 @@
  *
  * Copyright (C) 2009-2013 The SCUBA team.
  *
- * $Id: $
+ * $Id$
  */
 
 package net.sourceforge.scuba.smartcards;
@@ -30,6 +30,8 @@ package net.sourceforge.scuba.smartcards;
  * TODO: Work in heavy progress
  *  
  * @author woj
+ * 
+ * @version $Revision$
  */
 public abstract class AbstractFileSystemStructured implements FileSystemStructured {
 
