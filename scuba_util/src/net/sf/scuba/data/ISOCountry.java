@@ -20,7 +20,7 @@
  * $Id: $
  */
 
-package net.sourceforge.scuba.data;
+package net.sf.scuba.data;
 
 import java.io.Serializable;
 

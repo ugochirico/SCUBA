@@ -20,7 +20,7 @@
  * $Id: $
  */
 
-package net.sourceforge.scuba.util;
+package net.sf.scuba.util;
 
 /**
  * Some static helper methods for dealing with hexadecimal notation.
