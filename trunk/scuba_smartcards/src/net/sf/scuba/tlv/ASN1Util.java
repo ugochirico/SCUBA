@@ -20,12 +20,12 @@
  * $Id$
  */
 
-package net.sourceforge.scuba.tlv;
+package net.sf.scuba.tlv;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import net.sourceforge.scuba.util.Hex;
+import net.sf.scuba.util.Hex;
 
 class ASN1Util implements ASN1Constants {
 

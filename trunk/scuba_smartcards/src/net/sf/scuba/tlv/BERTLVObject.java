@@ -20,7 +20,7 @@
  * $Id$
  */
 
-package net.sourceforge.scuba.tlv;
+package net.sf.scuba.tlv;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -33,7 +33,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
-import net.sourceforge.scuba.util.Hex;
+import net.sf.scuba.util.Hex;
 
 /**
  * Generic data structure for storing Tag Length Value (TLV) objects encoded

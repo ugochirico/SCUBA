@@ -20,7 +20,7 @@
  * $Id$
  */
 
-package net.sourceforge.scuba.tlv;
+package net.sf.scuba.tlv;
 
 import java.io.DataOutputStream;
 import java.io.IOException;

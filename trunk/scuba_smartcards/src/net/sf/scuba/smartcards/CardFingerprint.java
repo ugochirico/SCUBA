@@ -20,18 +20,18 @@
  * $Id$
  */
 
-package net.sourceforge.scuba.smartcards;
+package net.sf.scuba.smartcards;
+
+import java.util.Properties;
 
 /**
- * File information, usually returned by a select command.
- * 
- * FIXME: work in progress...
+ * A fingerprint determines certain properties of a connected smart card.
  *
+ * TODO: For long term: maybe turn this into some CardType like system similar to OCF?
+ * 
  * @author Martijn Oostdijk (martijn.oostdijk@gmail.com)
  */
-public abstract class FileInfo {
+public interface CardFingerprint {
 
-	public abstract short getFID();
-	
-	public abstract int getFileLength();
+	Properties guessProperties();
 }
