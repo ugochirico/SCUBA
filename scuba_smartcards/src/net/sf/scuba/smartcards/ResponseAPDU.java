@@ -23,7 +23,7 @@
  * questions.
  */
 
-package net.sourceforge.scuba.smartcards;
+package net.sf.scuba.smartcards;
 
 import java.util.Arrays;
 

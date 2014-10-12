@@ -20,13 +20,13 @@
  * $Id$
  */
 
-package net.sourceforge.scuba.tlv;
+package net.sf.scuba.tlv;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Stack;
 
-import net.sourceforge.scuba.util.Hex;
+import net.sf.scuba.util.Hex;
 
 /**
  * State to keep track of where we are in a TLV stream.

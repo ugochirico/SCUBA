@@ -20,7 +20,7 @@
  * $Id$
  */
 
-package net.sourceforge.scuba.smartcards;
+package net.sf.scuba.smartcards;
 
 /**
  * CardService for easy wrapping of APDU messages.

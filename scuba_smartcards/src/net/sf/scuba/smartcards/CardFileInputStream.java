@@ -20,7 +20,7 @@
  * $Id$
  */
 
-package net.sourceforge.scuba.smartcards;
+package net.sf.scuba.smartcards;
 
 import java.io.IOException;
 import java.io.InputStream;

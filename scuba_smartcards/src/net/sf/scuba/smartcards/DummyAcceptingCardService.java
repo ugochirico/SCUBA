@@ -20,11 +20,11 @@
  * $Id$
  */
 
-package net.sourceforge.scuba.smartcards;
+package net.sf.scuba.smartcards;
 
 import java.io.PrintStream;
 
-import net.sourceforge.scuba.util.Hex;
+import net.sf.scuba.util.Hex;
 
 /**
  * A dummy card service to produce APDU traces instead of the actual communication

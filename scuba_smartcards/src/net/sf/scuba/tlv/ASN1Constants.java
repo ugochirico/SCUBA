@@ -20,7 +20,7 @@
  * $Id$
  */
 
-package net.sourceforge.scuba.tlv;
+package net.sf.scuba.tlv;
 
 public interface ASN1Constants {
 	

@@ -20,7 +20,7 @@
  * $Id$
  */
 
-package net.sourceforge.scuba.smartcards;
+package net.sf.scuba.smartcards;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -30,7 +30,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Properties;
 
-import net.sourceforge.scuba.util.Hex;
+import net.sf.scuba.util.Hex;
 
 /**
  * Fingerprint data structure. Basically maps commands to response codes (status words).

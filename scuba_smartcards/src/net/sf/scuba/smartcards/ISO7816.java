@@ -20,7 +20,7 @@
  * $Id$
  */
 
-package net.sourceforge.scuba.smartcards;
+package net.sf.scuba.smartcards;
 
 /**
  * Constants interface for ISO 7816 (and friends).
