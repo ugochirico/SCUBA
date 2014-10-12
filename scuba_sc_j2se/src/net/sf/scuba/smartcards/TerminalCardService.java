@@ -20,12 +20,17 @@
  * $Id: $
  */
 
-package net.sourceforge.scuba.smartcards;
+package net.sf.scuba.smartcards;
 
 import javax.smartcardio.Card;
 import javax.smartcardio.CardChannel;
 import javax.smartcardio.CardException;
 import javax.smartcardio.CardTerminal;
+
+import net.sf.scuba.smartcards.CardService;
+import net.sf.scuba.smartcards.CardServiceException;
+import net.sf.scuba.smartcards.CommandAPDU;
+import net.sf.scuba.smartcards.ResponseAPDU;
 
 /**
  * Card service implementation for sending APDUs to a terminal using the
