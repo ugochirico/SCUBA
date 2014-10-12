@@ -23,10 +23,14 @@
  * $Id: $
  */
 
-package net.sourceforge.scuba.smartcards;
+package net.sf.scuba.smartcards;
 
 import java.io.IOException;
 
+import net.sf.scuba.smartcards.CardService;
+import net.sf.scuba.smartcards.CardServiceException;
+import net.sf.scuba.smartcards.CommandAPDU;
+import net.sf.scuba.smartcards.ResponseAPDU;
 import android.nfc.tech.IsoDep;
 
 /**
