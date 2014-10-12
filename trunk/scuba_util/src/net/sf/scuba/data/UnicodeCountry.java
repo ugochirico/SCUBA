@@ -20,7 +20,7 @@
  * $Id$
  */
 
-package net.sourceforge.scuba.data;
+package net.sf.scuba.data;
 
 import java.io.Serializable;
 
@@ -54,7 +54,7 @@ public class UnicodeCountry extends Country implements Serializable {
 	AT = new UnicodeCountry(0x040, "AT", "AUT", "Austria", "Austrian"),
 	AU = new UnicodeCountry(0x036, "AU", "AUS", "Australia", "Australian"),
 	AW = new UnicodeCountry(0x533, "AW", "ABW", "Aruba", "Aruban"),
-	AX = new UnicodeCountry(0x248, "AX", "ALA", "Åland Islands", ""),
+	AX = new UnicodeCountry(0x248, "AX", "ALA", "ï¿½land Islands", ""),
 	AZ = new UnicodeCountry(0x031, "AZ", "AZE", "Azerbaijan", "Azerbaijani, Azeri"),
 	BA = new UnicodeCountry(0x070, "BA", "BIH", "Bosnia and Herzegovina", "Bosnian, Bosniak, Herzegovinian"),
 	BB = new UnicodeCountry(0x052, "BB", "BRB", "Barbados", "Barbadian"),
@@ -65,7 +65,7 @@ public class UnicodeCountry extends Country implements Serializable {
 	BH = new UnicodeCountry(0x048, "BH", "BHR", "Bahrain", "Bahraini"),
 	BI = new UnicodeCountry(0x108, "BI", "BDI", "Burundi", "Burundian"),
 	BJ = new UnicodeCountry(0x204, "BJ", "BEN", "Benin", "Beninese"),
-	BL = new UnicodeCountry(0x652, "BL", "BLM", "Saint Barthélemy", ""),
+	BL = new UnicodeCountry(0x652, "BL", "BLM", "Saint Barthï¿½lemy", ""),
 	BM = new UnicodeCountry(0x060, "BM", "BMU", "Bermuda", "Bermudian, Bermudan"),
 	BN = new UnicodeCountry(0x096, "BN", "BRN", "Brunei", "Bruneian"),
 	BO = new UnicodeCountry(0x068, "BO", "BOL", "Bolivia", "Bolivian"),
@@ -83,7 +83,7 @@ public class UnicodeCountry extends Country implements Serializable {
 	CF = new UnicodeCountry(0x140, "CF", "CAF", "Central African Republic", "Central African"),
 	CG = new UnicodeCountry(0x178, "CG", "COG", "Congo - Brazzaville", "Congolese"),
 	CH = new UnicodeCountry(0x756, "CH", "CHE", "Switzerland", "Swiss"),
-	CI = new UnicodeCountry(0x384, "CI", "CIV", "Côte d’Ivoire", "Ivorian"),
+	CI = new UnicodeCountry(0x384, "CI", "CIV", "Cï¿½te dï¿½Ivoire", "Ivorian"),
 	CK = new UnicodeCountry(0x184, "CK", "COK", "Cook Islands", ""),
 	CL = new UnicodeCountry(0x152, "CL", "CHL", "Chile", "Chilean"),
 	CM = new UnicodeCountry(0x120, "CM", "CMR", "Cameroon", "Cameroonian"),
@@ -93,7 +93,7 @@ public class UnicodeCountry extends Country implements Serializable {
 	CR = new UnicodeCountry(0x188, "CR", "CRI", "Costa Rica", "Costa Rican"),
 	CU = new UnicodeCountry(0x192, "CU", "CUB", "Cuba", "Cuban"),
 	CV = new UnicodeCountry(0x132, "CV", "CPV", "Cape Verde", "Cape Verdean"),
-//	CW = new UnicodeCountry(-1, "CW", "XXX", "Curaçao"),
+//	CW = new UnicodeCountry(-1, "CW", "XXX", "Curaï¿½ao"),
 	CX = new UnicodeCountry(0x162, "CX", "CXR", "Christmas Island", ""),
 	CY = new UnicodeCountry(0x196, "CY", "CYP", "Cyprus", "Cypriot"),
 	CZ = new UnicodeCountry(0x203, "CZ", "CZE", "Czech Republic", "Czech"),
@@ -233,7 +233,7 @@ public class UnicodeCountry extends Country implements Serializable {
 	PY = new UnicodeCountry(0x600, "PY", "PRY", "Paraguay", "Paraguayan"),
 	QA = new UnicodeCountry(0x634, "QA", "QAT", "Qatar", "Qatari"),
 //	QO = new UnicodeCountry(-1, "QO", "XXX", "Outlying Oceania"),
-	RE = new UnicodeCountry(0x638, "RE", "REU", "Réunion", "Reunionese, Reunionnais"),
+	RE = new UnicodeCountry(0x638, "RE", "REU", "Rï¿½union", "Reunionese, Reunionnais"),
 	RO = new UnicodeCountry(0x642, "RO", "ROU", "Romania", "Romanian"),
 	RS = new UnicodeCountry(0x688, "RS", "SRB", "Serbia", "Serbian"),
 	RU = new UnicodeCountry(0x643, "RU", "RUS", "Russia", "Russian"),
@@ -254,7 +254,7 @@ public class UnicodeCountry extends Country implements Serializable {
 	SO = new UnicodeCountry(0x706, "SO", "SOM", "Somalia", "Somali, Somalian"),
 	SR = new UnicodeCountry(0x740, "SR", "SUR", "Suriname", "Surinamese"),
 //	SS = new UnicodeCountry(-1, "SS", "XXX", "South Sudan"),
-	ST = new UnicodeCountry(0x678, "ST", "STP", "São Tomé and Príncipe", "Sao Tomean"),
+	ST = new UnicodeCountry(0x678, "ST", "STP", "Sï¿½o Tomï¿½ and Prï¿½ncipe", "Sao Tomean"),
 	SV = new UnicodeCountry(0x222, "SV", "SLV", "El Salvador", "Salvadoran"),
 //	SX = new UnicodeCountry(-1, "SX", "XXX", "Sint Maarten"),
 	SY = new UnicodeCountry(0x760, "SY", "SYR", "Syria", "Syrian"),

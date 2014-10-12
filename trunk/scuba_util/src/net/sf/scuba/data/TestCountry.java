@@ -20,7 +20,7 @@
  * $Id: $
  */
 
-package net.sourceforge.scuba.data;
+package net.sf.scuba.data;
 
 /**
  * This just defines Utopia (UT, UTO) as a special test country implementation.
