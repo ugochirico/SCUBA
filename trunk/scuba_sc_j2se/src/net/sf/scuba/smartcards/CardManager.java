@@ -20,7 +20,7 @@
  * $Id: $
  */
 
-package net.sourceforge.scuba.smartcards;
+package net.sf.scuba.smartcards;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,12 +40,17 @@ import javax.smartcardio.CardTerminal;
 import javax.smartcardio.CardTerminals;
 import javax.smartcardio.TerminalFactory;
 
+import net.sf.scuba.smartcards.APDUListener;
+import net.sf.scuba.smartcards.CardEvent;
+import net.sf.scuba.smartcards.CardService;
+import net.sf.scuba.smartcards.CardTerminalListener;
+
 /**
  * Manages all card terminals.
  * 
  * This is the source of card insertion and removal events. Ideally this should 
  * be the only place where low level CardService instances (such as {@link 
- * net.sourceforge.scuba.smartcards.TerminalCardService TerminalCardService})
+ * net.sf.scuba.smartcards.TerminalCardService TerminalCardService})
  * are created.
  * 
  * @author Martijn Oostdijk (martijn.oostdijk@gmail.com)

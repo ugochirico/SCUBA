@@ -16,9 +16,9 @@
 	<target name="compile" depends="" description="Compiles the source ">
 		<mkdir dir="${build}" />
 		<!-- Compile the java code from ${src} into ${build} -->
-		<javac target="1.6" srcdir="${scuba_util}/src" destdir="${build}" />		
- 		<javac target="1.6" srcdir="${scuba_smartcards}/src" classpath="${build}" destdir="${build}" />
-		<javac target="1.6" srcdir="${scuba_sc_j2se}/src" classpath="${build}" destdir="${build}" />
+		<javac includeantruntime="false" source="1.6" target="1.6" srcdir="${scuba_util}/src" destdir="${build}" />		
+ 		<javac includeantruntime="false" source="1.6" target="1.6" srcdir="${scuba_smartcards}/src" classpath="${build}" destdir="${build}" />
+		<javac includeantruntime="false" source="1.6" target="1.6" srcdir="${scuba_sc_j2se}/src" classpath="${build}" destdir="${build}" />
 	</target>
 
 	<target name="dist" depends="compile" description="Generates the distribution .jar file">
@@ -32,7 +32,7 @@
 				<attribute name="Implementation-Title" value="scuba"/>
 				<attribute name="Implementation-Version" value="0.0.3"/>
 			</manifest>
-			<fileset dir="${build}" includes="net/sourceforge/scuba/**/*.class" />
+			<fileset dir="${build}" includes="net/sf/scuba/**/*.class" />
 		</jar>	
 	</target>
 
