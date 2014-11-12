@@ -37,30 +37,39 @@ public class CardServiceException extends Exception {
 	public static final int SW_NONE = -1;
 	
 	/**
-	 * The status word that caused this exception, or -1 if not known or
-	 * recorded.
+	 * The status word that caused this exception, or -1 if not known or recorded.
 	 */
 	private int sw = SW_NONE;
 
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+	
+	/**
+	 * Creates a CardServiceException.
+	 * 
+	 * @param msg a message
+	 */
 	public CardServiceException(String msg) {
 		super(msg);
 	}
 
 	/**
-	 * Create a CardServiceException with a status word
+	 * Creates a CardServiceException with a status word.
 	 * 
-	 * @param sw
-	 *            The status word that caused this CardServiceException
+	 * @param msg a message
+	 * @param sw the status word that caused this CardServiceException
 	 */
 	public CardServiceException(String msg, int sw) {
 		super(msg);
 		this.sw = sw;
 	}
-
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
-
+	
+	/**
+	 * Gets the message.
+	 * 
+	 * @return the message
+	 */
 	public String getMessage() {
 		if (sw == -1) {
 			return super.getMessage();
@@ -70,7 +79,9 @@ public class CardServiceException extends Exception {
 	}
 
 	/**
-	 * @return The status word that caused this exception
+	 * Gets the status word.
+	 * 
+	 * @return the status word that caused this exception
 	 */
 	public int getSW() {
 		return sw;

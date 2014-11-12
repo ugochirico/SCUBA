@@ -64,6 +64,13 @@ public abstract class CardService implements Serializable {
 	 */
 	protected int state;
 
+	/**
+	 * Creates a card service.
+	 * 
+	 * @param object some platform object responsible for transporting the APDU.
+	 * 
+	 * @return a card service
+	 */
 	public static CardService getInstance(Object object) {
 		if (object == null) { throw new IllegalArgumentException(); }
 		Class<?> objectClass = object.getClass();
@@ -88,6 +95,9 @@ public abstract class CardService implements Serializable {
 		throw new IllegalArgumentException("Could not find a CardService for object of class \"" + objectClassName + "\"");
 	}
 
+	/*
+	 * FIXME: visibility? -- MO
+	 */
 	/**
 	 * Creates a new service.
 	 */
@@ -117,7 +127,9 @@ public abstract class CardService implements Serializable {
 	/**
 	 * Notifies listeners about APDU event.
 	 * 
-	 * @param capdu APDU event
+	 * @param count number of APDUs sent previously
+	 * @param capdu command APDU
+	 * @param rapdu response APDU
 	 */
 	protected void notifyExchangedAPDU(int count, CommandAPDU capdu, ResponseAPDU rapdu) {
 		if (apduListeners == null || apduListeners.size() < 1) { return; }
@@ -130,6 +142,8 @@ public abstract class CardService implements Serializable {
 	/**
 	 * Opens a session with the card. Selects a reader. Connects to the card.
 	 * Notifies any interested apduListeners.
+	 * 
+	 * @throws CardServiceException on error
 	 */
 	/*
 	 * @ requires state == SESSION_STOPPED_STATE;
@@ -139,6 +153,8 @@ public abstract class CardService implements Serializable {
 
 	/**
 	 * Whether there is a session started with the card.
+	 * 
+	 * @return a boolean indicating whether sessions has started
 	 */
 	/*
 	 * @ ensures \result == (state == SESSION_STARTED_STATE);
@@ -151,9 +167,11 @@ public abstract class CardService implements Serializable {
 	 * This method does not throw a CardServiceException if the ResponseAPDU
 	 * is status word indicating error.
 	 * 
-	 * @param apdu the command apdu to send.
-	 * @return the response from the card, including the status word.
-	 * @throws CardServiceException - if the card operation failed 
+	 * @param apdu the command apdu to send
+	 *
+	 * @return the response from the card, including the status word
+	 *
+	 * @throws CardServiceException if the card operation failed 
 	 */
 	/*
 	 * @ requires state == SESSION_STARTED_STATE; 
@@ -162,7 +180,12 @@ public abstract class CardService implements Serializable {
 	public abstract ResponseAPDU transmit(CommandAPDU apdu) throws CardServiceException;
 
 	public abstract byte[] getATR() throws CardServiceException;
-	
+
+	/**
+	 * Whether extended length APDUs are supported.
+	 * 
+	 * @return a boolean indicating whether extended length APDUs are supported
+	 */
 	public boolean isExtendedAPDULengthSupported() {
 		return false;
 	}
