@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * Copyright (C) 2009-2013 The SCUBA team.
+ * Copyright (C) 2009 - 2014  The SCUBA team.
  *
  * $Id$
  */
@@ -28,16 +28,19 @@ package net.sf.scuba.smartcards;
  * 
  * @author erikpoll
  * 
+ * @version $Revision$
  */
 public class CardServiceException extends Exception {
 
 	private static final long serialVersionUID = 4489156194716970879L;
 
+	public static final int SW_NONE = -1;
+	
 	/**
 	 * The status word that caused this exception, or -1 if not known or
 	 * recorded.
 	 */
-	private int sw = -1;
+	private int sw = SW_NONE;
 
 	public CardServiceException(String msg) {
 		super(msg);

@@ -1,39 +1,139 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<project name="scuba_sc_j2se" default="dist" basedir=".">
+<project name="JMRTD" default="dist" basedir="." xmlns:artifact="urn:maven-artifact-ant">
 
-	<description>
-		SCUBA smartcards for J2SE. Includes scuba_smartcards, scuba_sc_j2se, scuba_util into one scuba.jar.
-	</description>
+  <description>
+    JMRTD API jar.
+  </description>
 
-	<property name="scuba_util" value="../scuba_util" />
-	<property name="scuba_sc_j2se" value="../scuba_sc_j2se" />
-	<property name="scuba_smartcards" value="../scuba_smartcards" />	
-	
-	<property name="src" location="src" />
-	<property name="build" value="tmp/bin" />
-			
-	<target name="compile" depends="" description="Compiles the source ">
-		<mkdir dir="${build}" />
-		<!-- Compile the java code from ${src} into ${build} -->
-		<javac includeantruntime="false" source="1.6" target="1.6" srcdir="${scuba_util}/src" destdir="${build}" />		
- 		<javac includeantruntime="false" source="1.6" target="1.6" srcdir="${scuba_smartcards}/src" classpath="${build}" destdir="${build}" />
-		<javac includeantruntime="false" source="1.6" target="1.6" srcdir="${scuba_sc_j2se}/src" classpath="${build}" destdir="${build}" />
-	</target>
+  <property name="software" value="/home/martijno/software" />
+    
+  <property name="default_bcprov_lib" value="${software}/bc/bcprov-jdk15on-151.jar" />
+  <property name="default_certcvc_lib" value="${software}/cert-cvc-1.3.0/cert-cvc.jar" />
+  <property name="default_scuba_lib" value="../scuba_sc_j2se/scuba.jar" />
+  
+  <property environment="env" />
+  
+  <condition property="bcprov_lib" value="${env.BCPROV_LIB}" else="${default_bcprov_lib}">
+      <isset property="env.BCPROV_LIB" />
+  </condition>
+  <condition property="certcvc_lib" value="${env.CERTCVC_LIB}" else="${default_certcvc_lib}">
+      <isset property="env.CERTCVC_LIB" />
+  </condition>
+  <condition property="scuba_lib" value="${env.SCUBA_LIB}" else="${default_scuba_lib}">
+      <isset property="env.SCUBA_LIB" />
+  </condition>
 
-	<target name="dist" depends="compile" description="Generates the distribution .jar file">
+  <property name="src" location="src" />
+  <property name="build" value="build" />
+  <property name="dist" value="dist" />
 
-		<!-- Create the distribution jar file -->
-		<jar jarfile="scuba.jar">
-			<manifest>
-				<attribute name="Built-By" value="${user.name} on ${os.name} ${os.arch}" />
-				<attribute name="Built-Date" value="${TODAY}" />
-				<attribute name="Implementation-Vendor" value="SCUBA"/>
-				<attribute name="Implementation-Title" value="scuba"/>
-				<attribute name="Implementation-Version" value="0.0.3"/>
-			</manifest>
-			<fileset dir="${build}" includes="net/sf/scuba/**/*.class" />
-		</jar>	
-	</target>
+  <target name="init">
+    <mkdir dir="${build}" />
+    <mkdir dir="${dist}/lib" />
+  </target>
+
+  <!-- define Maven coordinates -->
+  <property name="groupId" value="org.jmrtd" />
+  <property name="artifactId" value="JMRTD" />
+  <property name="version" value="0.5.0-SNAPSHOT" />
+
+  <!-- define artifacts' name, which follows the convention of Maven -->
+  <property name="jar" value="${dist}/lib/${artifactId}-${version}.jar" />
+  <property name="javadoc-jar" value="${dist}/lib/${artifactId}-${version}-javadoc.jar" />
+  <property name="sources-jar" value="${dist}/lib/${artifactId}-${version}-sources.jar" />
+      
+  <target name="compile" depends="init" description="Compiles the source ">
+    <mkdir dir="${build}" />
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac includeantruntime="false" source="1.6" target="1.6" srcdir="src" classpath="${bcprov_lib}:${certcvc_lib}:${scuba_lib}" destdir="${build}" />    
+  </target>
+
+  <target name="jar" depends="compile" description="Generates the distribution .jar file">
+
+    <!-- Create the distribution jar file -->
+    <jar jarfile="${jar}" basedir="${build}">
+      <manifest>
+        <attribute name="Built-By" value="${user.name} on ${os.name} ${os.arch}" />
+        <attribute name="Built-Date" value="${TODAY}" />
+        <attribute name="Implementation-Vendor" value="JMRTD"/>
+        <attribute name="Implementation-Title" value="jmrtd"/>
+        <attribute name="Implementation-Version" value="${version}"/>
+      </manifest>
+      <fileset dir="${build}" includes="**/*.class" />
+    </jar>  
+  </target>
+
+  <target name="dist" depends="jar">
+     <!-- build the javadoc jar -->
+     <javadoc sourcepath="${src}" classpath="${bcprov_lib}:${certcvc_lib}:${scuba_lib}" destdir="${dist}/javadoc" />
+     <jar jarfile="${javadoc-jar}">
+       <fileset dir="${dist}/javadoc" />
+     </jar>
+
+     <!-- build the sources jar -->
+     <jar jarfile="${sources-jar}">
+       <fileset dir="${src}" />
+     </jar>
+  </target>
+
+  <!-- defined maven snapshots and staging repository id and url -->
+  <property name="ossrh-snapshots-repository-url" 
+    value="https://oss.sonatype.org/content/repositories/snapshots/" />
+  <property name="ossrh-staging-repository-url" 
+    value="https://oss.sonatype.org/service/local/staging/deploy/maven2/" />
+  <!-- there server id in the Maven settings.xml -->
+  <property name="ossrh-server-id" value="ossrh" />
+
+  <target name="deploy" depends="dist" description="deploy snapshot version to Maven snapshot repository">
+    <artifact:mvn>
+      <arg value="org.apache.maven.plugins:maven-deploy-plugin:2.6:deploy-file" />
+      <arg value="-Durl=${ossrh-snapshots-repository-url}" />
+      <arg value="-DrepositoryId=${ossrh-server-id}" />
+      <arg value="-DpomFile=pom.xml" />
+      <arg value="-Dfile=${jar}" />
+    </artifact:mvn>
+  </target>
+
+  <!-- before this, update project version (both build.xml and pom.xml) from SNAPSHOT to RELEASE -->
+  <target name="stage" depends="dist" description="deploy release version to Maven staging repository">
+    <!-- sign and deploy the main artifact -->
+    <artifact:mvn>
+      <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+      <arg value="-Durl=${ossrh-staging-repository-url}" />
+      <arg value="-DrepositoryId=${ossrh-server-id}" />
+      <arg value="-DpomFile=pom.xml" />
+      <arg value="-Dfile=${jar}" />
+      <arg value="-Pgpg" />
+    </artifact:mvn>
+
+    <!-- sign and deploy the sources artifact -->
+    <artifact:mvn>
+      <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+      <arg value="-Durl=${ossrh-staging-repository-url}" />
+      <arg value="-DrepositoryId=${ossrh-server-id}" />
+      <arg value="-DpomFile=pom.xml" />
+      <arg value="-Dfile=${sources-jar}" />
+      <arg value="-Dclassifier=sources" />
+      <arg value="-Pgpg" />
+    </artifact:mvn>
+
+    <!-- sign and deploy the javadoc artifact -->
+    <artifact:mvn>
+      <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+      <arg value="-Durl=${ossrh-staging-repository-url}" />
+      <arg value="-DrepositoryId=${ossrh-server-id}" />
+      <arg value="-DpomFile=pom.xml" />
+      <arg value="-Dfile=${javadoc-jar}" />
+      <arg value="-Dclassifier=javadoc" />
+      <arg value="-Pgpg" />
+    </artifact:mvn>
+  </target>
+
+  <target name="clean" description="clean up">
+    <delete dir="${build}" />
+    <delete dir="${dist}" />
+  </target>
 
 </project>
+
