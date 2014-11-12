@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * Copyright (C) 2009-2013 The SCUBA team.
+ * Copyright (C) 2009 - 2014  The SCUBA team.
  *
  * $Id$
  */
@@ -120,8 +120,10 @@ public abstract class CardService implements Serializable {
 	 * @param capdu APDU event
 	 */
 	protected void notifyExchangedAPDU(int count, CommandAPDU capdu, ResponseAPDU rapdu) {
+		if (apduListeners == null || apduListeners.size() < 1) { return; }
+		APDUEvent event = new APDUEvent(this, "RAW", count, capdu, rapdu);
 		for (APDUListener listener: apduListeners) {
-			listener.exchangedAPDU(new APDUEvent(this, "RAW", count, capdu, rapdu));
+			listener.exchangedAPDU(event);
 		}
 	}
 
