@@ -187,7 +187,7 @@ public class TLVInputStream extends InputStream {
 	 * 
 	 * @param searchTag the tag to search for
 	 *
-	 * @throws IOException
+	 * @throws IOException on error
 	 */
 	public void skipToTag(int searchTag) throws IOException {
 		while (true) {

@@ -176,8 +176,9 @@ public final class Hex {
 
 
 	/**
-	 * Converts the hexadecimal string in <code>text</code> to 
-	 * a byte.
+	 * Converts the hexadecimal string in <code>text</code> to a byte.
+	 *
+	 * @param text the string to convert
 	 *
 	 * @return the byte encoded in <code>text</code>.
 	 *
@@ -192,8 +193,9 @@ public final class Hex {
 	}
 
 	/**
-	 * Converts the hexadecimal string in <code>text</code> to 
-	 * a short.
+	 * Converts the hexadecimal string in <code>text</code> to a short.
+	 *
+	 * @param text the string to convert
 	 *
 	 * @return the short encoded in <code>text</code>.
 	 *
@@ -211,6 +213,8 @@ public final class Hex {
 	/**
 	 * Converts the hexadecimal string in <code>text</code> to
 	 * an integer.
+	 *
+	 * @param text the string to convert
 	 *
 	 * @return the integer encoded in <code>text</code>.
 	 *
@@ -407,6 +411,8 @@ public final class Hex {
 	 *
 	 * @param src the byte array to split.
 	 * @param width a positive number.
+	 * 
+	 * @return an array with the split contents
 	 */
 	public static byte[][] split(byte[] src, int width) {
 		int rows = src.length / width;

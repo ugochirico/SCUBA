@@ -123,7 +123,7 @@ public final class ResponseAPDU implements java.io.Serializable {
      * Returns the value of the status bytes SW1 and SW2 as a single
      * status word SW.
      * It is defined as
-     * <code>(getSW1() << 8) | getSW2()</code>.
+     * <code>(getSW1() &lt;&lt; 8) | getSW2()</code>.
      *
      * @return the value of the status word SW.
      */

@@ -54,6 +54,8 @@ public class TLVUtil implements ASN1Constants {
 	/**
 	 * The tag bytes of this object.
 	 * 
+	 * @param tag the tag
+	 * 
 	 * @return the tag bytes of this object.
 	 */
 	public static byte[] getTagAsBytes(int tag) {
@@ -83,7 +85,9 @@ public class TLVUtil implements ASN1Constants {
 
 	/**
 	 * The length bytes of this object.
-	 * 
+	 *
+	 * @param length the length
+	 *
 	 * @return length of encoded value as bytes
 	 */
 	public static byte[] getLengthAsBytes(int length) {
@@ -101,7 +105,6 @@ public class TLVUtil implements ASN1Constants {
 		}
 		return out.toByteArray();
 	}
-
 
 	static int getTagClass(int tag) {
 		int i = 3;

@@ -256,8 +256,8 @@ public class CardManager {
 	/**
 	 * Adds a factory.
 	 *
-	 * @param terminal the card terminal to add
-	 * @param isPolling whether we should immediately start polling this terminal
+	 * @param factory the factory to add
+	 * @param isPolling whether we should immediately start polling
 	 */
 	public void addFactory(TerminalFactory factory, boolean isPolling) {
 		FactoryPoller poller = factories.get(factory);
@@ -274,9 +274,11 @@ public class CardManager {
 	}
 
 	/**
-	 * Adds the terminals produced by <code>factory</code>.
+	 * Adds the terminals produced by the given terminal factory.
 	 *
-	 * @param factory
+	 * @param factory the terminal factory
+	 * @param isPolling should we start polling these terminals initially
+	 *
 	 * @return the number of terminals added
 	 */
 	public int addTerminals(TerminalFactory factory, boolean isPolling) {
