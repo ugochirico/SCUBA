@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<project name="SCUBA" default="dist" basedir="." xmlns:artifact="urn:maven-artifact-ant">
+<project name="SCUBA" default="dist" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 
   <description>Smart Card Utilities for Better Access.</description>
 
   <property name="software" value="/home/martijno/software" />
   <property name="scuba_smartcards_src" location="../scuba_smartcards/src" />
   <property name="scuba_util_src" location="../scuba_util/src" />
+
+  <path id="maven-ant-tasks.classpath" path="${software}/maven-ant-tasks-2.1.3.jar" />
     
   <property environment="env" />
   
   <property name="src" location="src" />
   <property name="build" value="build" />
   <property name="dist" value="dist" />
+
+  <path id="maven-ant-tasks.classpath" path="${software}/maven-ant-tasks-2.1.3.jar" />
+
+  <typedef resource="org/apache/maven/artifact/ant/antlib.xml"
+           uri="antlib:org.apache.maven.artifact.ant"
+           classpathref="maven-ant-tasks.classpath" />
 
   <target name="init">
     <mkdir dir="${build}" />
