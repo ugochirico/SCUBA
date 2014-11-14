@@ -240,7 +240,6 @@ public class ISOFileInfo extends FileInfo {
 		}
 	}
 
-
 	public byte[] getFormatted() {
 		byte[] result = new byte[0];
 		if(mainTag == -1) {
@@ -379,29 +378,29 @@ public class ISOFileInfo extends FileInfo {
 
 	public String toString() {
 		return 
-		"Length: "+fileLength + "\n" +
-		"Length FCI: "+fileLengthFCI + "\n" +
-		"Desc byte: "+descriptorByte + "\n" +
-		"Data byte: "+dataCodingByte + "\n" +
-		"Record size: "+maxRecordSize + "\n" +
-		"Record count: "+maxRecordsCount + "\n" +
-		"FID: "+Hex.shortToHexString(fid) + "\n" +
-		"DF name: "+Hex.bytesToHexString(dfName) + "\n" +
-		"propInfo: "+Hex.bytesToHexString(propInfo) + "\n" +
-		"secAttrProp: "+Hex.bytesToHexString(secAttrProp) + "\n" +
-		"secAttrExp: "+Hex.bytesToHexString(secAttrExp) + "\n" +
-		"secAttrComp: "+Hex.bytesToHexString(secAttrCompact) + "\n" +
-		"FCI ext: "+Hex.shortToHexString(fciExt) + "\n" +
-		"EF env temp: "+Hex.shortToHexString(envTempEF) + "\n" +
-		"Short EF: "+Hex.byteToHexString(shortEF) + "\n" +
-		"LCS byte: "+Hex.byteToHexString(lcsByte) + "\n" +
-		"Channel sec: "+Hex.byteToHexString(channelSecurity) + "\n" +
-		"a0: "+Hex.bytesToHexString(a0) + "\n" +
-		"a1: "+Hex.bytesToHexString(a1) + "\n" +
-		"a2: "+Hex.bytesToHexString(a2) + "\n" +
-		"a5: "+Hex.bytesToHexString(a5) + "\n" +
-		"ab: "+Hex.bytesToHexString(ab) + "\n" +
-		"ac: "+Hex.bytesToHexString(ac) + "\n";
+				"Length: " + fileLength + "\n" +
+				"Length FCI: " + fileLengthFCI + "\n" +
+				"Desc byte: " + descriptorByte + "\n" +
+				"Data byte: " + dataCodingByte + "\n" +
+				"Record size: " + maxRecordSize + "\n" +
+				"Record count: " + maxRecordsCount + "\n" +
+				"FID: " + Hex.shortToHexString(fid) + "\n" +
+				"DF name: " + Hex.bytesToHexString(dfName) + "\n" +
+				"propInfo: " + Hex.bytesToHexString(propInfo) + "\n" +
+				"secAttrProp: " + Hex.bytesToHexString(secAttrProp) + "\n" +
+				"secAttrExp: " + Hex.bytesToHexString(secAttrExp) + "\n" +
+				"secAttrComp: " + Hex.bytesToHexString(secAttrCompact) + "\n" +
+				"FCI ext: " + Hex.shortToHexString(fciExt) + "\n" +
+				"EF env temp: " + Hex.shortToHexString(envTempEF) + "\n" +
+				"Short EF: " + Hex.byteToHexString(shortEF) + "\n" +
+				"LCS byte: " + Hex.byteToHexString(lcsByte) + "\n" +
+				"Channel sec: " + Hex.byteToHexString(channelSecurity) + "\n" +
+				"a0: " + Hex.bytesToHexString(a0) + "\n" +
+				"a1: " + Hex.bytesToHexString(a1) + "\n" +
+				"a2: " + Hex.bytesToHexString(a2) + "\n" +
+				"a5: " + Hex.bytesToHexString(a5) + "\n" +
+				"ab: " + Hex.bytesToHexString(ab) + "\n" +
+				"ac: " + Hex.bytesToHexString(ac) + "\n";
 	}
 
 	// NOTE: added by MO to satisfy FileInfo interface.
@@ -423,39 +422,4 @@ public class ISOFileInfo extends FileInfo {
 	public int getFileLength() {
 		return fileLength;
 	}
-
-	public static void main(String[] args) {
-		// TODO: This class needs way more testing... 
-
-		byte[] fci2 =  {
-				0x6F, 37,
-				(byte)0x82, 0x01, 0x38, (byte)0x83, 0x02, (byte)0xEE, (byte)0xEE,
-				(byte)0x84, 0x10, (byte)0xD2, 0x33, 0x00, 0x00, 0x01, 0x00,
-				0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-				0x00, 0x00,(byte) 0x85, 0x02, 0x15, (byte)0xC2, (byte)0x8A, 0x01,
-				0x05, (byte)0xA1, 0x03, (byte)0x8B, 0x01, 0x02
-		};
-
-		byte[] fci3 =  {
-				0x6F, 23,
-				(byte)0x82, 0x05, 0x04, 0x41, 0x00, 0x32, 0x10, (byte)0x83,
-				0x02, 0x50, 0x44, (byte)0x85, 0x02, 0x01, (byte)0x8C, (byte)0x8A,
-				0x01, 0x05, (byte)0xA1, 0x03, (byte)0x8B, 0x01, 0x01
-		};
-		try {
-			ISOFileInfo f2 = new ISOFileInfo(fci2);
-			System.out.println(f2);
-			ISOFileInfo f3 = new ISOFileInfo(fci3);
-			System.out.println(f3);
-			System.out.println(Hex.bytesToHexString(fci2));
-			System.out.println(Hex.bytesToHexString(f2.getFormatted()));
-			System.out.println(Hex.bytesToHexString(fci3));
-			System.out.println(Hex.bytesToHexString(f3.getFormatted()));
-		}catch(CardServiceException cse) {
-			cse.printStackTrace();
-		}
-	}
-
-
-
 }
