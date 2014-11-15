@@ -29,7 +29,7 @@
   <!-- define Maven coordinates -->
   <property name="groupId" value="net.sf.scuba" />
   <property name="artifactId" value="scuba-smartcards" />
-  <property name="version" value="0.0.4-SNAPSHOT" />
+  <property name="version" value="0.0.4-RELEASE" />
 
   <!-- define artifacts' name, which follows the convention of Maven -->
   <property name="jar" value="${dist}/lib/${artifactId}-${version}.jar" />
@@ -49,8 +49,8 @@
       <manifest>
         <attribute name="Built-By" value="${user.name} on ${os.name} ${os.arch}" />
         <attribute name="Built-Date" value="${TODAY}" />
-        <attribute name="Implementation-Vendor" value="SCUBA"/>
-        <attribute name="Implementation-Title" value="scuba"/>
+        <attribute name="Implementation-Vendor" value="${groupId}"/>
+        <attribute name="Implementation-Title" value="${artifactId}"/>
         <attribute name="Implementation-Version" value="${version}"/>
       </manifest>
       <fileset dir="${build}" includes="**/*.class" />

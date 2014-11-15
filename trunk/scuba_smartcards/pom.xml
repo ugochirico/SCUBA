@@ -2,7 +2,24 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.scuba</groupId>
   <artifactId>scuba-smartcards</artifactId>
-  <version>0.0.4-SNAPSHOT</version>
+  <version>0.0.4-RELEASE</version>
   <name>SCUBA</name>
-  <description>Smart Card Utils for Better Access Java</description>
+  <description>Smart Card Utils for Better Access.</description>
+  <url>http://scuba.sourceforge.net</url>
+  <licenses>
+    <license>
+        <name>GNU Library or Lesser General Public License (LGPL)</name>
+        <url>http://www.gnu.org/licenses/lgpl.html</url>
+    </license>
+  </licenses>
+  <scm>
+    <url>https://sourceforge.net/projects/scuba/</url>
+    <connection>scm:svn:https://svn.code.sf.net/p/scuba/code</connection>
+  </scm>
+  <developers>
+    <developer>
+      <id>martijno</id>
+      <name>Martijn Oostdijk</name>
+    </developer>
+  </developers>
 </project>
