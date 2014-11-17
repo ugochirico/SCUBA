@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.scuba</groupId>
   <artifactId>scuba-smartcards</artifactId>
-  <version>0.0.4-RELEASE</version>
+  <version>0.0.4</version>
   <name>SCUBA</name>
   <description>Smart Card Utils for Better Access.</description>
   <url>http://scuba.sourceforge.net</url>
