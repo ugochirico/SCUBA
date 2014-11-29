@@ -4,6 +4,10 @@
 
   <description>Smart Card Utilities for Better Access.</description>
 
+  <property name="groupId" value="net.sf.scuba" />
+  <property name="artifactId" value="scuba-smartcards" />
+  <property name="version" value="0.0.5-SNAPSHOT" />
+
   <property name="software" value="/home/martijno/software" />
   <property name="scuba_util_src" location="../scuba_util/src" />
 
@@ -25,11 +29,6 @@
     <mkdir dir="${build}" />
     <mkdir dir="${dist}/lib" />
   </target>
-
-  <!-- define Maven coordinates -->
-  <property name="groupId" value="net.sf.scuba" />
-  <property name="artifactId" value="scuba-smartcards" />
-  <property name="version" value="0.0.4" />
 
   <!-- define artifacts' name, which follows the convention of Maven -->
   <property name="jar" value="${dist}/lib/${artifactId}-${version}.jar" />
