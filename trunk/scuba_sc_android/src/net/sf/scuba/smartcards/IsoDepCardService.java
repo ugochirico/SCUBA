@@ -71,6 +71,7 @@ public class IsoDepCardService extends CardService {
             }
 			state = SESSION_STARTED_STATE;
         } catch (IOException e) {
+        	e.printStackTrace();
             throw new CardServiceException(e.toString());
         }
     }
