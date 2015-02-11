@@ -19,7 +19,7 @@
  * $Id: ACR122TerminalFactorySpi.java,v 1.20 2008/06/27 14:52:24 woj Exp $
  */
 
-package net.sourceforge.scuba.smartcards;
+package net.sf.scuba.smartcards;
 
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
@@ -39,7 +39,7 @@ import javax.smartcardio.TerminalFactorySpi;
 
 public class ACR122TerminalFactorySpi extends TerminalFactorySpi {
 
-	private static final Logger LOGGER = Logger.getLogger("net.sourceforge.scuba.smartcards");
+	private static final Logger LOGGER = Logger.getLogger("net.sf.scuba.smartcards");
 	
     /** Constant to represent card's presence */
     private static int PRESENT = 1, ABSENT = 0;
