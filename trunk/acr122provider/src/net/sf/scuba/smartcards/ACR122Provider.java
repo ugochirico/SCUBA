@@ -19,15 +19,18 @@
  * $Id: ACR122Provider.java,v 1.4 2008/06/27 14:41:08 woj Exp $
  */
 
-package net.sourceforge.scuba.smartcards;
+package net.sf.scuba.smartcards;
 
 import java.security.Provider;
 
 public final class ACR122Provider extends Provider {
-    public ACR122Provider() {
+
+	private static final long serialVersionUID = 5310244665934194445L;
+
+	public ACR122Provider() {
         super("ACR122", 0.9d,
                 "TerminalFactory Provider for the ACR122 Smart Card Reader");
         put("TerminalFactory.ACR122",
-                "net.sourceforge.scuba.smartcards.ACR122TerminalFactorySpi");
+                "net.sf.scuba.smartcards.ACR122TerminalFactorySpi");
     }
 }
