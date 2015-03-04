@@ -6,9 +6,10 @@
 
   <property name="groupId" value="net.sf.scuba" />
   <property name="artifactId" value="scuba-smartcards" />
-  <property name="version" value="0.0.5-SNAPSHOT" />
+  <property name="version" value="0.0.5" />
 
-  <property name="software" value="/home/martijno/software" />
+  <property name="home" value="/Users/martijn" />
+  <property name="software" value="${home}/software" />
   <property name="scuba_util_src" location="../scuba_util/src" />
 
   <path id="maven-ant-tasks.classpath" path="${software}/maven-ant-tasks-2.1.3.jar" />
