@@ -269,7 +269,6 @@ public class TLVInputStream extends InputStream {
 	public synchronized void mark(int readLimit) {
 		inputStream.mark(readLimit);
 		markedState = (TLVInputState)state.clone();
-		System.out.println("DEBUG: mark(): markedState == " + markedState);
 	}
 
 	/**
@@ -291,8 +290,6 @@ public class TLVInputStream extends InputStream {
 		if (!markSupported()) {
 			throw new IOException("mark/reset not supported");
 		}
-		System.out.println("DEBUG: reset(): state == " + state);
-		System.out.println("DEBUG: reset(): markedState == " + markedState);
 		inputStream.reset();
 		state = markedState;
 		markedState = null;
