@@ -6,7 +6,7 @@
 
   <property name="groupId" value="net.sf.scuba" />
   <property name="artifactId" value="scuba-smartcards" />
-  <property name="version" value="0.0.5" />
+  <property name="version" value="0.0.6" />
 
   <property name="home" value="/Users/martijn" />
   <property name="software" value="${home}/software" />
@@ -45,7 +45,7 @@
   <target name="jar" depends="compile" description="Generates the distribution .jar file">
 
     <!-- Create the distribution jar file -->
-    <jar jarfile="${jar}" basedir="${build}">
+    <jar jarfile="${jar}" basedir="${build}" duplicate="preserve">
       <manifest>
         <attribute name="Built-By" value="${user.name} on ${os.name} ${os.arch}" />
         <attribute name="Built-Date" value="${TODAY}" />
