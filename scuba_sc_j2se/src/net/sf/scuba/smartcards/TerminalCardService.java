@@ -22,15 +22,11 @@
 
 package net.sf.scuba.smartcards;
 
+import javax.smartcardio.ATR;
 import javax.smartcardio.Card;
 import javax.smartcardio.CardChannel;
 import javax.smartcardio.CardException;
 import javax.smartcardio.CardTerminal;
-
-import net.sf.scuba.smartcards.CardService;
-import net.sf.scuba.smartcards.CardServiceException;
-import net.sf.scuba.smartcards.CommandAPDU;
-import net.sf.scuba.smartcards.ResponseAPDU;
 
 /**
  * Card service implementation for sending APDUs to a terminal using the
@@ -61,14 +57,20 @@ public class TerminalCardService extends CardService {
 		lastActiveTime = System.currentTimeMillis();
 		apduCount = 0;
 	}
-	
+
 	/**
 	 * Opens a session with the card.
 	 */
 	public void open() throws CardServiceException {
 		if (isOpen()) { return; }
 		try {
-			card = terminal.connect("*");
+			try {
+				/* Prefer T=1. */
+				card = terminal.connect("T=1");
+			} catch (CardException ce) {
+				/* If that fails, connect with any protocol available (probably T=0). */
+				card = terminal.connect("*");
+			}
 			channel = card.getBasicChannel();
 			if (channel == null) { 
 				throw new CardServiceException("channel == null"); 
@@ -115,8 +117,8 @@ public class TerminalCardService extends CardService {
 	}
 
 	public boolean isExtendedAPDULengthSupported() {
-//		javax.smartcardio.ATR atr = channel.getCard().getATR();
-//		byte[] historicalBytes = atr.getHistoricalBytes();		
+		//		javax.smartcardio.ATR atr = channel.getCard().getATR();
+		//		byte[] historicalBytes = atr.getHistoricalBytes();		
 		return true; // FIXME: check ATR to see if really true
 	}
 
@@ -129,7 +131,7 @@ public class TerminalCardService extends CardService {
 	 * @throws CardServiceException - if the card operation failed
 	 */
 	public byte[] transmitControlCommand(int controlCode, byte[] command)
-	throws CardServiceException {
+			throws CardServiceException {
 		try {
 			return card.transmitControlCommand(controlCode, command);
 		} catch (CardException ce) {
@@ -137,21 +139,23 @@ public class TerminalCardService extends CardService {
 			throw new CardServiceException(ce.toString());
 		}
 	}
-	
+
 	/**
 	 * Closes the session with the card.
 	 */
 	public void close() {
 		try {
 			if (card != null) {
-                // WARNING: Woj: the meaning of the reset flag is actually
-                // reversed w.r.t. to the official documentation, false means
-                // that the card is going to be reset, true means do not reset
-                // This is a bug in the smartcardio implementation from SUN
-				// Moreover, Linux PCSC implementation goes numb if you try to
-				// disconnect a card that is not there anymore.
+				/*
+				 * WARNING: Woj: the meaning of the reset flag is actually
+				 * reversed w.r.t. to the official documentation, false means
+				 * that the card is going to be reset, true means do not reset
+				 * This is a bug in the smartcardio implementation from SUN
+				 * Moreover, Linux PCSC implementation goes numb if you try to
+				 * disconnect a card that is not there anymore.
+				 */
 				if(terminal.isCardPresent()) {
-				  card.disconnect(false);
+					card.disconnect(false);
 				}
 			}
 			state = SESSION_STOPPED_STATE;
@@ -159,7 +163,7 @@ public class TerminalCardService extends CardService {
 			/* Disconnect failed? Fine... */
 		}
 	}
-	
+
 	/**
 	 * The terminal used by this service.
 	 *
@@ -168,11 +172,11 @@ public class TerminalCardService extends CardService {
 	public CardTerminal getTerminal() {
 		return terminal;
 	}
-	
+
 	/* package visible */ long getLastActiveTime() {
-	   return lastActiveTime;
+		return lastActiveTime;
 	}
-	
+
 	/**
 	 * Produces a textual representation of this service.
 	 * 
