@@ -6,16 +6,16 @@
 
   <property name="groupId" value="net.sf.scuba" />
   <property name="artifactId" value="scuba-smartcards" />
-  <property name="version" value="0.0.6" />
+  <property name="version" value="0.0.7" />
 
   <property name="home" value="/Users/martijn" />
   <property name="software" value="${home}/software" />
   <property name="scuba_util_src" location="../scuba_util/src" />
 
   <path id="maven-ant-tasks.classpath" path="${software}/maven-ant-tasks-2.1.3.jar" />
-    
+
   <property environment="env" />
-  
+
   <property name="src" location="src" />
   <property name="build" value="build" />
   <property name="dist" value="dist" />
@@ -35,7 +35,7 @@
   <property name="jar" value="${dist}/lib/${artifactId}-${version}.jar" />
   <property name="javadoc-jar" value="${dist}/lib/${artifactId}-${version}-javadoc.jar" />
   <property name="sources-jar" value="${dist}/lib/${artifactId}-${version}-sources.jar" />
-      
+
   <target name="compile" depends="init" description="Compiles the source ">
     <mkdir dir="${build}" />
     <!-- Compile the java code from ${src} into ${build} -->
