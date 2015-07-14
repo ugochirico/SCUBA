@@ -85,8 +85,12 @@ public interface ISO7816 {
 	static final byte INS_MSE = (byte)0x22;
 
 	static final short SW_BYTES_REMAINING_00 = (short)0x6100;
+	static final short SW_STATE_NON_VOLATILE_MEMORY_UNCHANGED_NO_INFORMATION_GIVEN = (short)0x6200;
 	static final short SW_END_OF_FILE = (short)0x6282;
 	static final short SW_LESS_DATA_RESPONDED_THAN_REQUESTED = (short)0x6287;
+	static final short SW_NON_VOLATILE_MEMORY_CHANGED_NO_INFORMATION_GIVEN = (short)0x6300;
+	static final short SW_NON_VOLATILE_MEMORY_CHANGED_FILE_FILLED_UP_BY_LAST_WRITE = (short)0x6381;
+	static final short SW_NON_VOLATILE_MEMORY_CHANGED_COUNTER_0 = (short)0x63C0;
 	static final short SW_WRONG_LENGTH = (short)0x6700;
 	static final short SW_LOGICAL_CHANNEL_NOT_SUPPORTED = (short)0x6881;
 	static final short SW_SECURE_MESSAGING_NOT_SUPPORTED  = (short)0x6882;
