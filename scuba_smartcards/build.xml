@@ -6,7 +6,7 @@
 
   <property name="groupId" value="net.sf.scuba" />
   <property name="artifactId" value="scuba-smartcards" />
-  <property name="version" value="0.0.7" />
+  <property name="version" value="0.0.8" />
 
   <property name="home" value="/Users/martijn" />
   <property name="software" value="${home}/software" />
