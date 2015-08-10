@@ -4,7 +4,8 @@
 
   <description>Smart Card Utilities for Better Access.</description>
 
-  <property name="software" value="/home/martijno/software" />
+  <property name="home" value="/Users/martijno" />
+  <property name="software" value="${home}/software" />
   <property name="scuba_util_src" location="../scuba_util/src" />
 
   <path id="maven-ant-tasks.classpath" path="${software}/maven-ant-tasks-2.1.3.jar" />
@@ -29,7 +30,7 @@
   <!-- define Maven coordinates -->
   <property name="groupId" value="net.sf.scuba" />
   <property name="artifactId" value="scuba-sc-j2se" />
-  <property name="version" value="0.0.4-SNAPSHOT" />
+  <property name="version" value="0.0.8" />
 
   <property name="scuba_smartcards_lib" location="../scuba_smartcards/dist/lib/scuba-smartcards-${version}.jar" />
 
@@ -47,7 +48,7 @@
   <target name="jar" depends="compile" description="Generates the distribution .jar file">
 
     <!-- Create the distribution jar file -->
-    <jar jarfile="${jar}" basedir="${build}">
+    <jar jarfile="${jar}" basedir="${build}" duplicate="preserve">
       <manifest>
         <attribute name="Built-By" value="${user.name} on ${os.name} ${os.arch}" />
         <attribute name="Built-Date" value="${TODAY}" />
