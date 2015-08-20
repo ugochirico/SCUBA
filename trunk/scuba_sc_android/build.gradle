@@ -52,12 +52,6 @@ task copyJar(type: Copy, dependsOn:':bundleRelease') {
 
 build.dependsOn(copyJar)
 
-configurations {
-    archives {
-        extendsFrom configurations.default
-    }
-}
-
 signing {
     required { has("release") && gradle.taskGraph.hasTask("uploadArchives") }
     sign configurations.archives
