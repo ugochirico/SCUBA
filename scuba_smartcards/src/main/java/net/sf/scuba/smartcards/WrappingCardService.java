@@ -54,7 +54,7 @@ public class WrappingCardService extends CardService {
 	throws CardServiceException {
 		if (isEnabled()) {
 			ResponseAPDU rapdu = service.transmit(wrapper.wrap(capdu));
-			return wrapper.unwrap(rapdu, rapdu.getBytes().length);
+			return wrapper.unwrap(rapdu);
 		} else {
 			return service.transmit(capdu);
 		}

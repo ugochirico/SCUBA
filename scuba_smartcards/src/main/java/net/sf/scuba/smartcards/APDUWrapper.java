@@ -33,14 +33,20 @@ package net.sf.scuba.smartcards;
 public interface APDUWrapper {
 
    /**
-    * Wraps the command apdu buffer.
+    * Wraps the command APDU buffer.
     * 
-    * @param capdu should contain a header (length 4), an explicit lc (0 if
-    *           no cdata), the cdata (of length lc), and an explicit le (0 if
-    *           not specified).
-    * @return wrapped apdu buffer
+    * @param capdu the command APDU
+    *
+    * @return the wrapped APDU
     */
    CommandAPDU wrap(CommandAPDU capdu);
-   
-   ResponseAPDU unwrap(ResponseAPDU rapdu, int len);
+
+   /**
+    * Unwraps the response APDU buffer.
+    * 
+    * @param rapdu the response APDU
+    * 
+    * @return the wrapped APDU
+    */
+   ResponseAPDU unwrap(ResponseAPDU rapdu);
 }

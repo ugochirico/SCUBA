@@ -47,6 +47,7 @@ public interface FileSystemStructured {
 	 * @return contents of currently selected file, contains at least 1 byte, at most length.
 	 * @throws CardServiceException on error (for instance: end of file)
 	 */
+	/* TODO: consider a variant of this with an output buffer and index. */
 	byte[] readBinary(int offset, int length) throws CardServiceException;
 
 	/**
