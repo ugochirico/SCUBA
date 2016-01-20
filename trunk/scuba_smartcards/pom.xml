@@ -1,25 +1,35 @@
-<project>
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.scuba</groupId>
   <artifactId>scuba-smartcards</artifactId>
-  <version>0.0.8</version>
+  <version>0.0.9-SNAPSHOT</version>
+
   <name>SCUBA</name>
   <description>Smart Card Utils for Better Access.</description>
   <url>http://scuba.sourceforge.net</url>
+
   <licenses>
     <license>
         <name>GNU Library or Lesser General Public License (LGPL)</name>
         <url>http://www.gnu.org/licenses/lgpl.html</url>
     </license>
   </licenses>
+
   <scm>
     <url>https://sourceforge.net/projects/scuba/</url>
     <connection>scm:svn:https://svn.code.sf.net/p/scuba/code</connection>
   </scm>
+
   <developers>
     <developer>
       <id>martijno</id>
       <name>Martijn Oostdijk</name>
     </developer>
   </developers>
+
+  <properties>
+     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
 </project>
