@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.scuba</groupId>
   <artifactId>scuba-sc-j2se</artifactId>
-  <version>0.0.8</version>
+  <version>0.0.9-SNAPSHOT</version>
   <name>SCUBA</name>
   <description>Smart Card Utils for Better Access - J2SE.</description>
   <url>http://scuba.sourceforge.net</url>
