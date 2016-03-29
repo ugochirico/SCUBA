@@ -37,8 +37,8 @@ import net.sf.scuba.util.Hex;
  * 
  * @version $Revision$
  */
-class TLVOutputState implements Cloneable
-{	
+class TLVOutputState implements Cloneable {
+
 	/**
 	 * Encoded the tags, lengths, and (partial) values.
 	 */
