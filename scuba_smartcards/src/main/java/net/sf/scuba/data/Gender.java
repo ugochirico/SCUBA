@@ -34,8 +34,8 @@ package net.sf.scuba.data;
 public enum Gender {
 
 	MALE { public int toInt() { return 0x01; } }, 
-	FEMALE {public int toInt() { return 0x02; }}, 
-	UNKNOWN { public int toInt() { return 0x03; } }, 
+	FEMALE {public int toInt() { return 0x02; } }, 
+	UNKNOWN { public int toInt() { return 0xFF; } }, 
 	UNSPECIFIED {public int toInt() { return 0x00; } };
 
 	/**
@@ -58,6 +58,6 @@ public enum Gender {
 				return g;
 			}
 		}
-		return null;
+		return UNKNOWN;
 	}
 }
