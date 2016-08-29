@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.scuba</groupId>
   <artifactId>scuba-sc-j2se</artifactId>
-  <version>0.0.9-SNAPSHOT</version>
+  <version>0.0.9</version>
 
   <name>SCUBA-J2SE</name>
   <description>Smart Card Utils for Better Access - J2SE.</description>
@@ -36,7 +36,7 @@
     <dependency>
       <groupId>net.sf.scuba</groupId>
       <artifactId>scuba-smartcards</artifactId>
-      <version>0.0.9-SNAPSHOT</version>
+      <version>0.0.9</version>
     </dependency>
   </dependencies>
 
