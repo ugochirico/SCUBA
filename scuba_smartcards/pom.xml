@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.scuba</groupId>
   <artifactId>scuba-smartcards</artifactId>
-  <version>0.0.10-SNAPSHOT</version>
+  <version>0.0.10</version>
 
   <name>SCUBA</name>
   <description>Smart Card Utils for Better Access.</description>
