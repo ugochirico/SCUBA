@@ -1,14 +1,15 @@
 buildscript {
   repositories {
-    mavenCentral()
+    jcenter()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:1.2.3'
+    classpath 'com.android.tools.build:gradle:2.2.0'
   }
 }
 
 allprojects {
   repositories {
+    mavenLocal()
     mavenCentral()
   }
 }
@@ -18,17 +19,19 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-version = "0.0.10"
+version = "0.0.11"
 group = "net.sf.scuba"
 // artifactId is derived from rootProject.name as specified in settings.gradle
 
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+
 android {
-  compileSdkVersion 22
-  buildToolsVersion "23.0.2"
+  compileSdkVersion 24
+  buildToolsVersion "24.0.3"
 
   defaultConfig {
     minSdkVersion 10
-    targetSdkVersion 22
+    targetSdkVersion 24
   }
 
   buildTypes {
@@ -40,7 +43,7 @@ android {
 }
 
 dependencies {
-  compile 'net.sf.scuba:scuba-smartcards:0.0.9'
+  compile 'net.sf.scuba:scuba-smartcards:0.0.10'
 }
 
 task copyJar(type: Copy, dependsOn:':bundleRelease') {
@@ -53,7 +56,9 @@ task copyJar(type: Copy, dependsOn:':bundleRelease') {
 build.dependsOn(copyJar)
 
 signing {
-  required { has("release") && gradle.taskGraph.hasTask("uploadArchives") }
+//  required { has("release") && gradle.taskGraph.hasTask("uploadArchives") }
+  required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
+
   sign configurations.archives
 }
 
