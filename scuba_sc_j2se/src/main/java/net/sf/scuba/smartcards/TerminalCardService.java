@@ -52,6 +52,7 @@ public class TerminalCardService extends CardService {
    * @param terminal the card terminal to connect to
    */
   public TerminalCardService(CardTerminal terminal) {
+    super();
     this.terminal = terminal;
     lastActiveTime = System.currentTimeMillis();
     apduCount = 0;
