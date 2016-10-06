@@ -67,7 +67,7 @@ public abstract class CardService implements Serializable {
 	/**
 	 * Creates a card service.
 	 * 
-	 * @param object some platform object responsible for transporting the APDU.
+	 * @param object some platform object responsible for transporting the APDU
 	 * 
 	 * @return a card service
 	 */
@@ -112,28 +112,33 @@ public abstract class CardService implements Serializable {
 	 * @param l the listener to add
 	 */
 	public void addAPDUListener(APDUListener l) {
-		if (apduListeners != null) { apduListeners.add(l); }
+		if (apduListeners != null) {
+		  apduListeners.add(l);
+		}
 	}
 
 	/**
-	 * Removes the listener <code>l</code>, if present.
+	 * Removes a listener.
+	 * If the specified listener is not present, this method has no effect.
 	 * 
 	 * @param l the listener to remove
 	 */
 	public void removeAPDUListener(APDUListener l) {
-		if (apduListeners != null) { apduListeners.remove(l); }
+		if (apduListeners != null) {
+		  apduListeners.remove(l);
+		}
 	}
 
 	/**
 	 * Notifies listeners about APDU event.
 	 * 
 	 * @param count number of APDUs sent previously
-	 * @param capdu command APDU
-	 * @param rapdu response APDU
+	 * @param commandAPDU command APDU
+	 * @param responseAPDU response APDU
 	 */
-	protected void notifyExchangedAPDU(int count, CommandAPDU capdu, ResponseAPDU rapdu) {
+	protected void notifyExchangedAPDU(int count, CommandAPDU commandAPDU, ResponseAPDU responseAPDU) {
 		if (apduListeners == null || apduListeners.size() < 1) { return; }
-		APDUEvent event = new APDUEvent(this, "RAW", count, capdu, rapdu);
+		APDUEvent event = new APDUEvent(this, "RAW", count, commandAPDU, responseAPDU);
 		for (APDUListener listener: apduListeners) {
 			listener.exchangedAPDU(event);
 		}
@@ -162,14 +167,14 @@ public abstract class CardService implements Serializable {
 	public abstract boolean isOpen();
 
 	/**
-	 * Sends an apdu to the card. Notifies any interested apduListeners.
+	 * Sends an APDU to the card. Notifies any interested apduListeners.
 	 * 
 	 * This method does not throw a CardServiceException if the ResponseAPDU
 	 * is status word indicating error.
 	 * 
-	 * @param apdu the command apdu to send
+	 * @param commandAPDU the Command APDU to send
 	 *
-	 * @return the response from the card, including the status word
+	 * @return the Response APDU from the card, including the status word
 	 *
 	 * @throws CardServiceException if the card operation failed 
 	 */
@@ -177,7 +182,7 @@ public abstract class CardService implements Serializable {
 	 * @ requires state == SESSION_STARTED_STATE; 
 	 * @ ensures state == SESSION_STARTED_STATE;
 	 */
-	public abstract ResponseAPDU transmit(CommandAPDU apdu) throws CardServiceException;
+	public abstract ResponseAPDU transmit(CommandAPDU commandAPDU) throws CardServiceException;
 
 	public abstract byte[] getATR() throws CardServiceException;
 
