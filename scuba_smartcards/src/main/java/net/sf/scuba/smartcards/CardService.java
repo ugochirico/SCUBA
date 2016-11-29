@@ -184,6 +184,13 @@ public abstract class CardService implements Serializable {
 	 */
 	public abstract ResponseAPDU transmit(CommandAPDU commandAPDU) throws CardServiceException;
 
+	/**
+	 * Gets the answer to reset.
+	 * 
+	 * @return the answer to reset
+	 * 
+	 * @throws CardServiceException on error
+	 */
 	public abstract byte[] getATR() throws CardServiceException;
 
 	/**
