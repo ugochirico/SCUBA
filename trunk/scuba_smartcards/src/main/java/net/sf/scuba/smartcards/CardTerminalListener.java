@@ -33,17 +33,17 @@ import java.util.EventListener;
  */
 public interface CardTerminalListener extends EventListener {
 
-	/**
-	 * Called when card inserted.
-	 *
-	 * @param ce insertion event
-	 */
-	void cardInserted(CardEvent ce);
+  /**
+   * Called when card inserted.
+   *
+   * @param ce insertion event
+   */
+  void cardInserted(CardEvent ce);
 
-	/**
-	 * Called when card removed.
-	 *
-	 * @param ce removal event
-	 */
-	void cardRemoved(CardEvent ce);
+  /**
+   * Called when card removed.
+   *
+   * @param ce removal event
+   */
+  void cardRemoved(CardEvent ce);
 }

@@ -31,31 +31,31 @@ package net.sf.scuba.smartcards;
  */
 public interface FileSystemStructured {
 
-	/**
-	 * Selects a file.
-	 * 
-	 * @param fid indicates which file to select
-	 * @throws CardServiceException in case of error
-	 */
-	void selectFile(short fid) throws CardServiceException;
+  /**
+   * Selects a file.
+   * 
+   * @param fid indicates which file to select
+   * @throws CardServiceException in case of error
+   */
+  void selectFile(short fid) throws CardServiceException;
 
-	/**
-	 * Reads a fragment of the currently selected file.
-	 * 
-	 * @param offset offset
-	 * @param length the number of bytes to read (the result may be shorter, though)
-	 * @return contents of currently selected file, contains at least 1 byte, at most length.
-	 * @throws CardServiceException on error (for instance: end of file)
-	 */
-	/* TODO: consider a variant of this with an output buffer and index. */
-	byte[] readBinary(int offset, int length) throws CardServiceException;
+  /**
+   * Reads a fragment of the currently selected file.
+   * 
+   * @param offset offset
+   * @param length the number of bytes to read (the result may be shorter, though)
+   * @return contents of currently selected file, contains at least 1 byte, at most length.
+   * @throws CardServiceException on error (for instance: end of file)
+   */
+  /* TODO: consider a variant of this with an output buffer and index. */
+  byte[] readBinary(int offset, int length) throws CardServiceException;
 
-	/**
-	 * Identifies the currently selected file.
-	 * 
-	 * @return a path of file identifiers or <code>null</code>.
-	 * 
-	 * @throws CardServiceException on error
-	 */
-	FileInfo[] getSelectedPath() throws CardServiceException;
+  /**
+   * Identifies the currently selected file.
+   * 
+   * @return a path of file identifiers or <code>null</code>.
+   * 
+   * @throws CardServiceException on error
+   */
+  FileInfo[] getSelectedPath() throws CardServiceException;
 }

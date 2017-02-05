@@ -31,17 +31,17 @@ package net.sf.scuba.smartcards;
  * @version $Revision$
  */
 public interface ISO7816 {
-  
+
   static final byte OFFSET_CLA = (byte)0;
   static final byte OFFSET_INS = (byte)1;
   static final byte OFFSET_P1 = (byte)2;
   static final byte OFFSET_P2 = (byte)3;
   static final byte OFFSET_LC = (byte)4;
   static final byte OFFSET_CDATA = (byte)5;
-  
+
   static final byte CLA_ISO7816 = (byte)0x00;
   static final byte CLA_COMMAND_CHAINING = (byte)0x10;
-  
+
   static final byte INVALIDATE_CHV = 0x04;
   static final byte INS_ERASE_BINARY = 0x0E;
   static final byte INS_VERIFY = 0x20;
@@ -83,7 +83,7 @@ public interface ISO7816 {
   static final byte INS_DELETE_FILE = (byte)0xE4;
   static final byte INS_PSO = (byte)0x2A;
   static final byte INS_MSE = (byte)0x22;
-  
+
   static final short SW_BYTES_REMAINING_00 = (short)0x6100;
   static final short SW_STATE_NON_VOLATILE_MEMORY_UNCHANGED_NO_INFORMATION_GIVEN = (short)0x6200;
   static final short SW_END_OF_FILE = (short)0x6282;
@@ -120,7 +120,7 @@ public interface ISO7816 {
   static final short SW_UNKNOWN = (short)0x6F00;
   static final short SW_CARD_TERMINATED = (short)0x6FFF;
   static final short SW_NO_ERROR = (short)0x9000;
-  
+
   /**
    * ISO 7816-4 Secure Messaging tag for
    * data object for confidentiality, BER-TLV encoded, but not SM-related data objects.
@@ -134,21 +134,21 @@ public interface ISO7816 {
    * See 5.6.4.
    */
   static final int TAG_SM_ENCRYPTED_DATA_WITH_PADDING_INDICATOR = 0x87;
-  
+
   /**
    * ISO 7816-4 Secure Messaging tag for
    * date object with cryptographic checksum (at least 4 bytes).
    * See 5.6.3.
    */
   static final int TAG_SM_CRYPTOGRAPHIC_CHECKSUM = 0x8E;
-  
+
   /**
    * ISO 7816-4 Secure Messaging tag for
    * data object with expected response APDU length.
    * Specified elsewhere.
    */
   static final int TAG_SM_EXPECTED_LENGTH = 0x97;
-  
+
   /**
    * ISO 7816-4 Secure Messaging tag for
    * data object containing secure messaging status information (SW1-SW2).

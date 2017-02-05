@@ -31,52 +31,52 @@ package net.sf.scuba.smartcards;
  */
 public class WrappingCardService extends CardService {
 
-	private static final long serialVersionUID = -1872209495542386286L;
+  private static final long serialVersionUID = -1872209495542386286L;
 
-	private CardService service;
-	private APDUWrapper wrapper;
-	private boolean enabled;
-	
-	public WrappingCardService(CardService service, APDUWrapper wrapper) {
-		this.service = service;
-		this.wrapper = wrapper;
-	}
+  private CardService service;
+  private APDUWrapper wrapper;
+  private boolean enabled;
 
-	public void open() throws CardServiceException {
-		service.open();
-	}
+  public WrappingCardService(CardService service, APDUWrapper wrapper) {
+    this.service = service;
+    this.wrapper = wrapper;
+  }
 
-	public boolean isOpen() {
-		return service.isOpen();
-	}
+  public void open() throws CardServiceException {
+    service.open();
+  }
 
-	public ResponseAPDU transmit(CommandAPDU capdu)
-	throws CardServiceException {
-		if (isEnabled()) {
-			ResponseAPDU rapdu = service.transmit(wrapper.wrap(capdu));
-			return wrapper.unwrap(rapdu);
-		} else {
-			return service.transmit(capdu);
-		}
-	}
-	
-	public byte[] getATR() throws CardServiceException {
-		return service.getATR();
-	}
+  public boolean isOpen() {
+    return service.isOpen();
+  }
 
-	public void close() {
-		service.close();
-	}
-	
-	public void enable() {
-		enabled = true;
-	}
-	
-	public boolean isEnabled() {
-		return enabled;
-	}
-	
-	public void disable() {
-		enabled = false;
-	}
+  public ResponseAPDU transmit(CommandAPDU capdu)
+      throws CardServiceException {
+    if (isEnabled()) {
+      ResponseAPDU rapdu = service.transmit(wrapper.wrap(capdu));
+      return wrapper.unwrap(rapdu);
+    } else {
+      return service.transmit(capdu);
+    }
+  }
+
+  public byte[] getATR() throws CardServiceException {
+    return service.getATR();
+  }
+
+  public void close() {
+    service.close();
+  }
+
+  public void enable() {
+    enabled = true;
+  }
+
+  public boolean isEnabled() {
+    return enabled;
+  }
+
+  public void disable() {
+    enabled = false;
+  }
 }
