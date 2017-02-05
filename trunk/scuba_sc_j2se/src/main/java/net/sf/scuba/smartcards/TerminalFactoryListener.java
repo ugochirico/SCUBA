@@ -33,17 +33,17 @@ import java.util.EventListener;
  */
 public interface TerminalFactoryListener extends EventListener
 {
-	/**
-	 * Called when terminal added.
-	 *
-	 * @param cte addition event
-	 */
-	void cardTerminalAdded(CardTerminalEvent cte);
+  /**
+   * Called when terminal added.
+   *
+   * @param cte addition event
+   */
+  void cardTerminalAdded(CardTerminalEvent cte);
 
-	/**
-	 * Called when terminal removed.
-	 *
-	 * @param cte removal event
-	 */
-	void cardTerminalRemoved(CardTerminalEvent cte);
+  /**
+   * Called when terminal removed.
+   *
+   * @param cte removal event
+   */
+  void cardTerminalRemoved(CardTerminalEvent cte);
 }

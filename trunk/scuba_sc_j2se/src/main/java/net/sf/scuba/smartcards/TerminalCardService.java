@@ -37,15 +37,15 @@ import javax.smartcardio.CardTerminal;
  * @version $Revision: 216 $
  */
 public class TerminalCardService extends CardService {
-  
+
   private static final long serialVersionUID = 7918176921505623791L;
-  
+
   private CardTerminal terminal;
   private Card card;
   private CardChannel channel;
   private long lastActiveTime;
   private int apduCount;
-  
+
   /**
    * Constructs a new card service.
    * 
@@ -57,7 +57,7 @@ public class TerminalCardService extends CardService {
     lastActiveTime = System.currentTimeMillis();
     apduCount = 0;
   }
-  
+
   /**
    * Opens a session with the card.
    */
@@ -82,14 +82,14 @@ public class TerminalCardService extends CardService {
       throw new CardServiceException(ce.toString());
     }
   }
-  
+
   /**
    * Whether there is an open session with the card.
    */
   public boolean isOpen() {
     return (state != SESSION_STOPPED_STATE);
   }
-  
+
   /**
    * Sends an APDU to the card.
    * 
@@ -112,18 +112,18 @@ public class TerminalCardService extends CardService {
       throw new CardServiceException(ce.toString());
     }
   }
-  
+
   public byte[] getATR() {
     javax.smartcardio.ATR atr = channel.getCard().getATR();
     return atr.getBytes();
   }
-  
+
   public boolean isExtendedAPDULengthSupported() {
     //		javax.smartcardio.ATR atr = channel.getCard().getATR();
     //		byte[] historicalBytes = atr.getHistoricalBytes();		
     return true; // FIXME: check ATR to see if really true
   }
-  
+
   /**
    * Sends a control command to the terminal
    *
@@ -141,7 +141,7 @@ public class TerminalCardService extends CardService {
       throw new CardServiceException(ce.toString());
     }
   }
-  
+
   /**
    * Closes the session with the card.
    */
@@ -165,7 +165,7 @@ public class TerminalCardService extends CardService {
       /* Disconnect failed? Fine... */
     }
   }
-  
+
   /**
    * The terminal used by this service.
    *
@@ -174,11 +174,11 @@ public class TerminalCardService extends CardService {
   public CardTerminal getTerminal() {
     return terminal;
   }
-  
+
   /* package visible */ long getLastActiveTime() {
     return lastActiveTime;
   }
-  
+
   /**
    * Produces a textual representation of this service.
    * 
