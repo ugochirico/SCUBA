@@ -35,80 +35,86 @@ import javax.smartcardio.CardTerminal;
  */
 public class CardTerminalEvent extends EventObject
 {
-    private static final long serialVersionUID = 8884602877518044124L;
+  private static final long serialVersionUID = 8884602877518044124L;
 
-    /** Event type constant. */
-	public static final int REMOVED = 0, ADDED = 1;
+  /** Event type constant. */
+  public static final int REMOVED = 0, ADDED = 1;
 
-	private int type;
-	private CardTerminal terminal;
+  private int type;
+  private CardTerminal terminal;
 
-	/**
-	 * Creates an event.
-	 *
-	 * @param type event type
-	 * @param terminal event source
-	 */
-	public CardTerminalEvent(int type, CardTerminal terminal) {
-		super(terminal);
-		this.type = type;
-		this.terminal = terminal;
-	}
+  /**
+   * Creates an event.
+   *
+   * @param type event type
+   * @param terminal event source
+   */
+  public CardTerminalEvent(int type, CardTerminal terminal) {
+    super(terminal);
+    this.type = type;
+    this.terminal = terminal;
+  }
 
-	/**
-	 * Gets the event type.
-	 *
-	 * @return event type
-	 */
-	public int getType() {
-		return type;
-	}
+  /**
+   * Gets the event type.
+   *
+   * @return event type
+   */
+  public int getType() {
+    return type;
+  }
 
-	/**
-	 * Gets the event source.
-	 *
-	 * @return event source
-	 */
-	public CardTerminal getTerminal() {
-		return terminal;
-	}
+  /**
+   * Gets the event source.
+   *
+   * @return event source
+   */
+  public CardTerminal getTerminal() {
+    return terminal;
+  }
 
-	/**
-	 * Gets a textual representation of this event.
-	 * 
-	 * @return a textual representation of this event
-	 */
-	public String toString() {
-		switch (type) {
-		case REMOVED: return "Terminal '" + terminal + "' removed";
-		case ADDED: return "Terminal '" + terminal + "' added";
-		}
-		return "CardTerminalEvent " + terminal;
-	}
+  /**
+   * Gets a textual representation of this event.
+   * 
+   * @return a textual representation of this event
+   */
+  public String toString() {
+    switch (type) {
+      case REMOVED: return "Terminal '" + terminal + "' removed";
+      case ADDED: return "Terminal '" + terminal + "' added";
+    }
+    return "CardTerminalEvent " + terminal;
+  }
 
-	/**
-	 * Whether this event is equal to the event in <code>other</code>.
-	 * 
-	 * @return a boolean
-	 */
-	public boolean equals(Object other) {
-		try {
-			if (other == null) { return false; }
-			if (other == this) { return true; }
-			if (!other.getClass().equals(this.getClass())) { return false; }
-			CardTerminalEvent otherCardTerminalEvent = (CardTerminalEvent)other;
-			return type == otherCardTerminalEvent.type && terminal.equals(otherCardTerminalEvent.terminal);
-		} catch (ClassCastException cce) {
-			return false;
-		}
-	}
+  /**
+   * Whether this event is equal to the event in <code>other</code>.
+   * 
+   * @return a boolean
+   */
+  public boolean equals(Object other) {
+    try {
+      if (other == null) {
+        return false;
+      }
+      if (other == this) {
+        return true;
+      }
+      if (!other.getClass().equals(this.getClass())) {
+        return false;
+      }
+      CardTerminalEvent otherCardTerminalEvent = (CardTerminalEvent)other;
+      return type == otherCardTerminalEvent.type && terminal.equals(otherCardTerminalEvent.terminal);
+    } catch (ClassCastException cce) {
+      return false;
+    }
+  }
 
-	/**
-	 * Gets a hash code for this event.
-	 * 
-	 * @return a hash code for this event
-	 */
-	public int hashCode() {
-		return 5 * terminal.hashCode() + 7 * type;
-	}
+  /**
+   * Gets a hash code for this event.
+   * 
+   * @return a hash code for this event
+   */
+  public int hashCode() {
+    return 5 * terminal.hashCode() + 7 * type;
+  }
 }
