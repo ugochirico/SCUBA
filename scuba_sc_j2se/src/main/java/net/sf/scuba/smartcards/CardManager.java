@@ -520,8 +520,8 @@ public class CardManager {
   }
 
 
-  private class FactoryPoller implements Runnable 
-  {
+  private class FactoryPoller implements Runnable {
+
     private CardManager cm;
     private TerminalFactory factory;
     private boolean isPolling, hasStoppedPolling;
@@ -550,9 +550,15 @@ public class CardManager {
     public void startPolling() throws InterruptedException {
       pollingLock.lock();
       try {
-        if (isPolling) { return; }
+        if (isPolling) {
+          return;
+        }
+
         isPolling = true;
-        if (myThread != null && myThread.isAlive()) { return; }
+        if (myThread != null && myThread.isAlive()) {
+          return;
+        }
+
         myThread = new Thread(this);
         myThread.start();
         while (isPolling && hasStoppedPolling) {
@@ -577,7 +583,9 @@ public class CardManager {
           terminalFactoryListenersLock.unlock();
         }
 
-        if (myThread == null || !myThread.isAlive()) { return; }
+        if (myThread == null || !myThread.isAlive()) {
+          return;
+        }
 
         /* Wait until thread has stopped polling. */
         while (!isPolling && !hasStoppedPolling) {
@@ -613,7 +621,10 @@ public class CardManager {
           pollingLock.lock();
           try {
             try {
-              if (!isPolling) { break; }
+              if (!isPolling) {
+                break;
+              }
+              
               CardTerminals additionalTerminals = factory.terminals();
               if (additionalTerminals != null) {
                 List<CardTerminal> terminalsList = additionalTerminals.list();
@@ -683,8 +694,8 @@ public class CardManager {
     }
   }
 
-  private class TerminalPoller implements Runnable
-  {
+  private class TerminalPoller implements Runnable {
+
     private CardManager cm;
     private CardTerminal terminal;
     private TerminalCardService service;
@@ -712,11 +723,19 @@ public class CardManager {
     public void startPolling() throws InterruptedException {
       pollingLock.lock();
       try {
-        if (isPolling) { return; }
+        if (isPolling) {
+          return;
+        }
+        
         isPolling = true;
-        if (myThread != null && myThread.isAlive()) { return; }
+        
+        if (myThread != null && myThread.isAlive()) {
+          return;
+        }
+        
         myThread = new Thread(this);
         myThread.start();
+        
         while (isPolling && hasStoppedPolling) {
           startedPollingCondition.await();
         }
@@ -728,7 +747,11 @@ public class CardManager {
     public void stopPolling() throws InterruptedException {
       pollingLock.lock();
       try {
-        if (!isPolling) { return; }
+        if (!isPolling) {
+          return;
+        }
+
+        /* Actually stop polling: this will quit the loop in the run method. */
         isPolling = false;
 
         /* Wake up threads waiting for first listener. */
@@ -739,7 +762,9 @@ public class CardManager {
           cardTerminalListenersLock.unlock();
         }
 
-        if (myThread == null || !myThread.isAlive()) { return; }
+        if (myThread == null || !myThread.isAlive()) {
+          return;
+        }
 
         /* Wait until thread has stopped polling. */
         while (!isPolling && !hasStoppedPolling) {
@@ -763,6 +788,7 @@ public class CardManager {
       } finally {
         pollingLock.unlock();
       }
+
       try {
         while (isPolling) {
           /* If Card Manager has no listeners, we go to sleep. */
@@ -778,7 +804,9 @@ public class CardManager {
           pollingLock.lock();
           try {
             try {
-              if (!isPolling) { break; }
+              if (!isPolling) {
+                break;
+              }
 
               boolean wasCardPresent = false;
               boolean isCardPresent = false;
@@ -789,12 +817,15 @@ public class CardManager {
                 try {
                   if (terminal.isCardPresent()) {
                     service = new TerminalCardService(terminal);
-                    for (APDUListener l: cm.apduListeners) { service.addAPDUListener(l); }
+                    for (APDUListener l: cm.apduListeners) {
+                      service.addAPDUListener(l);
+                    }
                   }
                 } catch (Exception e) {
                   if (service != null) { service.close(); }
                 }
               }
+              
               if (service != null && (currentTime - service.getLastActiveTime() < TERMINAL_POLL_INTERVAL)) {
                 isCardPresent = true;
               } else {
@@ -804,6 +835,7 @@ public class CardManager {
                   isCardPresent = false;
                 }
               }
+              
               if (wasCardPresent && !isCardPresent) {
                 if (service != null) {
                   final CardEvent ce = new CardEvent(CardEvent.REMOVED, service);
@@ -830,7 +862,9 @@ public class CardManager {
               /* FIXME: what if reader no longer connected, should we remove it from list? */
               ce.printStackTrace(); // for debugging
             } finally {
-              if (!isPolling && service != null) { service.close(); }
+              if (!isPolling && service != null) {
+                service.close();
+              }
             }
           } finally {
             pollingLock.unlock();
