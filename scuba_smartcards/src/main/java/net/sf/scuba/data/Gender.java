@@ -33,31 +33,31 @@ package net.sf.scuba.data;
  */
 public enum Gender {
 
-	MALE { public int toInt() { return 0x01; } }, 
-	FEMALE {public int toInt() { return 0x02; } }, 
-	UNKNOWN { public int toInt() { return 0xFF; } }, 
-	UNSPECIFIED {public int toInt() { return 0x00; } };
+  MALE { public int toInt() { return 0x01; } }, 
+  FEMALE {public int toInt() { return 0x02; } }, 
+  UNKNOWN { public int toInt() { return 0xFF; } }, 
+  UNSPECIFIED {public int toInt() { return 0x00; } };
 
-	/**
-	 * Gets the numerical code of this gender.
-	 * 
-	 * @return the numerical code
-	 */
-	public abstract int toInt();
+  /**
+   * Gets the numerical code of this gender.
+   * 
+   * @return the numerical code
+   */
+  public abstract int toInt();
 
-	/**
-	 * Gets a gender object given a code.
-	 * 
-	 * @param code the numerical code
-	 * 
-	 * @return a gender
-	 */
-	public static Gender getInstance(int code) {
-		for(Gender g : Gender.values()) {
-			if(g.toInt() == code) {
-				return g;
-			}
-		}
-		return UNKNOWN;
-	}
+  /**
+   * Gets a gender object given a code.
+   * 
+   * @param code the numerical code
+   * 
+   * @return a gender
+   */
+  public static Gender getInstance(int code) {
+    for(Gender g : Gender.values()) {
+      if(g.toInt() == code) {
+        return g;
+      }
+    }
+    return UNKNOWN;
+  }
 }

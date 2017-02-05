@@ -32,21 +32,21 @@ package net.sf.scuba.smartcards;
  */
 public interface APDUWrapper {
 
-   /**
-    * Wraps the command APDU buffer.
-    * 
-    * @param capdu the command APDU
-    *
-    * @return the wrapped APDU
-    */
-   CommandAPDU wrap(CommandAPDU capdu);
+  /**
+   * Wraps the command APDU buffer.
+   * 
+   * @param capdu the command APDU
+   *
+   * @return the wrapped APDU
+   */
+  CommandAPDU wrap(CommandAPDU capdu);
 
-   /**
-    * Unwraps the response APDU buffer.
-    * 
-    * @param rapdu the response APDU
-    * 
-    * @return the wrapped APDU
-    */
-   ResponseAPDU unwrap(ResponseAPDU rapdu);
+  /**
+   * Unwraps the response APDU buffer.
+   * 
+   * @param rapdu the response APDU
+   * 
+   * @return the wrapped APDU
+   */
+  ResponseAPDU unwrap(ResponseAPDU rapdu);
 }

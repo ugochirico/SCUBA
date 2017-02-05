@@ -39,228 +39,228 @@ import net.sf.scuba.util.Hex;
  */
 class TLVOutputState implements Cloneable {
 
-	/**
-	 * Encoded the tags, lengths, and (partial) values.
-	 */
-	private Stack<TLVStruct> state;
+  /**
+   * Encoded the tags, lengths, and (partial) values.
+   */
+  private Stack<TLVStruct> state;
 
-	/**
-	 * Encoded position, only one can be true.
-	 * 
-	 * TFF: ^TLVVVVVV
-	 * FTF: T^LVVVVVV
-	 * FFT: TL^VVVVVV
-	 * FFT: TLVVVV^VV
-	 * TFF: ^
-	 */
-	private boolean isAtStartOfTag, isAtStartOfLength, isReadingValue;
+  /**
+   * Encoded position, only one can be true.
+   * 
+   * TFF: ^TLVVVVVV
+   * FTF: T^LVVVVVV
+   * FFT: TL^VVVVVV
+   * FFT: TLVVVV^VV
+   * TFF: ^
+   */
+  private boolean isAtStartOfTag, isAtStartOfLength, isReadingValue;
 
-	public TLVOutputState() {
-		state = new Stack<TLVStruct>();
-		isAtStartOfTag = true;
-		isAtStartOfLength = false;
-		isReadingValue = false;
-	}
+  public TLVOutputState() {
+    state = new Stack<TLVStruct>();
+    isAtStartOfTag = true;
+    isAtStartOfLength = false;
+    isReadingValue = false;
+  }
 
-	private TLVOutputState(Stack<TLVStruct> state, boolean isAtStartOfTag, boolean isAtStartOfLength, boolean isReadingValue) {
-		this.state = state;
-		this.isAtStartOfTag = isAtStartOfTag;
-		this.isAtStartOfLength = isAtStartOfLength;
-		this.isReadingValue = isReadingValue;
-	}
+  private TLVOutputState(Stack<TLVStruct> state, boolean isAtStartOfTag, boolean isAtStartOfLength, boolean isReadingValue) {
+    this.state = state;
+    this.isAtStartOfTag = isAtStartOfTag;
+    this.isAtStartOfLength = isAtStartOfLength;
+    this.isReadingValue = isReadingValue;
+  }
 
-	public boolean isAtStartOfTag() {
-		return isAtStartOfTag;
-	}
+  public boolean isAtStartOfTag() {
+    return isAtStartOfTag;
+  }
 
-	public boolean isAtStartOfLength() {
-		return isAtStartOfLength;
-	}
+  public boolean isAtStartOfLength() {
+    return isAtStartOfLength;
+  }
 
-	public boolean isProcessingValue() {
-		return isReadingValue;
-	}
+  public boolean isProcessingValue() {
+    return isReadingValue;
+  }
 
-	public int getTag() {
-		if (state.isEmpty()) {
-			throw new IllegalStateException("Tag not yet read.");
-		}
-		TLVStruct currentObject = state.peek();
-		return currentObject.getTag();
-	}
+  public int getTag() {
+    if (state.isEmpty()) {
+      throw new IllegalStateException("Tag not yet read.");
+    }
+    TLVStruct currentObject = state.peek();
+    return currentObject.getTag();
+  }
 
-	public int getLength() {
-		if (state.isEmpty()) {
-			throw new IllegalStateException("Length not yet known.");
-		}
-		TLVStruct currentObject = state.peek();
-		int length = currentObject.getLength();
-		if (length < 0) {
-			throw new IllegalStateException("Length not yet knwon.");
-		}
-		return length;
-	}
+  public int getLength() {
+    if (state.isEmpty()) {
+      throw new IllegalStateException("Length not yet known.");
+    }
+    TLVStruct currentObject = state.peek();
+    int length = currentObject.getLength();
+    if (length < 0) {
+      throw new IllegalStateException("Length not yet knwon.");
+    }
+    return length;
+  }
 
-	public int getValueBytesProcessed() {
-		TLVStruct currentObject = state.peek();
-		return currentObject.getValueBytesProcessed();
-	}
+  public int getValueBytesProcessed() {
+    TLVStruct currentObject = state.peek();
+    return currentObject.getValueBytesProcessed();
+  }
 
-	public int getValueBytesLeft() {
-		if (state.isEmpty()) {
-			throw new IllegalStateException("Length of value is unknown.");
-		}
-		TLVStruct currentObject = state.peek();
-		int currentLength = currentObject.getLength();
-		int valueBytesRead = currentObject.getValueBytesProcessed();
-		return currentLength - valueBytesRead;
-	}
+  public int getValueBytesLeft() {
+    if (state.isEmpty()) {
+      throw new IllegalStateException("Length of value is unknown.");
+    }
+    TLVStruct currentObject = state.peek();
+    int currentLength = currentObject.getLength();
+    int valueBytesRead = currentObject.getValueBytesProcessed();
+    return currentLength - valueBytesRead;
+  }
 
-	public void setTagProcessed(int tag) {
-		/* Length is set to MAX INT, we will update it when caller calls our setLengthProcessed. */
-		TLVStruct obj = new TLVStruct(tag);
-		if (!state.isEmpty()) {
-			TLVStruct parent = state.peek();
-			byte[] tagBytes = TLVUtil.getTagAsBytes(tag);
-			parent.write(tagBytes, 0, tagBytes.length);
-		}
-		state.push(obj);
-		isAtStartOfTag = false;
-		isAtStartOfLength = true;
-		isReadingValue = false;
-	}
+  public void setTagProcessed(int tag) {
+    /* Length is set to MAX INT, we will update it when caller calls our setLengthProcessed. */
+    TLVStruct obj = new TLVStruct(tag);
+    if (!state.isEmpty()) {
+      TLVStruct parent = state.peek();
+      byte[] tagBytes = TLVUtil.getTagAsBytes(tag);
+      parent.write(tagBytes, 0, tagBytes.length);
+    }
+    state.push(obj);
+    isAtStartOfTag = false;
+    isAtStartOfLength = true;
+    isReadingValue = false;
+  }
 
-	/**
-	 * We've passed the length in the stream, but we don't know what it is yet...
-	 */
-	public void setDummyLengthProcessed() {
-		isAtStartOfTag = false;
-		isAtStartOfLength = false;
-		isReadingValue = true;
-		/* NOTE: doesn't call setLength, so that isLengthSet in stackFrame will remain false. */
-	}
-	
-	public boolean isDummyLengthSet() {
-		if (state.isEmpty()) { return false; }
-		return !state.peek().isLengthSet();
-	}
+  /**
+   * We've passed the length in the stream, but we don't know what it is yet...
+   */
+  public void setDummyLengthProcessed() {
+    isAtStartOfTag = false;
+    isAtStartOfLength = false;
+    isReadingValue = true;
+    /* NOTE: doesn't call setLength, so that isLengthSet in stackFrame will remain false. */
+  }
 
-	public void setLengthProcessed(int length) {
-		if (length < 0) {
-			throw new IllegalArgumentException("Cannot set negative length (length = " + length + ").");
-		}
-		TLVStruct obj = state.pop();
-		if (!state.isEmpty()) {
-			TLVStruct parent = state.peek();
-			byte[] lengthBytes = TLVUtil.getLengthAsBytes(length);
-			parent.write(lengthBytes, 0, lengthBytes.length);
-		}
-		obj.setLength(length);
-		state.push(obj);
-		isAtStartOfTag = false;
-		isAtStartOfLength = false;
-		isReadingValue = true;
-	}
+  public boolean isDummyLengthSet() {
+    if (state.isEmpty()) { return false; }
+    return !state.peek().isLengthSet();
+  }
 
-	public void updatePreviousLength(int byteCount) {
-		if (state.isEmpty()) { return; }
-		TLVStruct currentObject = state.peek();
-		
-		if (currentObject.isLengthSet && currentObject.getLength() == byteCount) { return; }
+  public void setLengthProcessed(int length) {
+    if (length < 0) {
+      throw new IllegalArgumentException("Cannot set negative length (length = " + length + ").");
+    }
+    TLVStruct obj = state.pop();
+    if (!state.isEmpty()) {
+      TLVStruct parent = state.peek();
+      byte[] lengthBytes = TLVUtil.getLengthAsBytes(length);
+      parent.write(lengthBytes, 0, lengthBytes.length);
+    }
+    obj.setLength(length);
+    state.push(obj);
+    isAtStartOfTag = false;
+    isAtStartOfLength = false;
+    isReadingValue = true;
+  }
 
-		currentObject.setLength(byteCount);
-		
-		if (currentObject.getValueBytesProcessed() == currentObject.getLength()) {
-			/* Update parent. */
-			state.pop();
-			byte[] lengthBytes = TLVUtil.getLengthAsBytes(byteCount);
-			byte[] value = currentObject.getValue();
-			updateValueBytesProcessed(lengthBytes, 0, lengthBytes.length);
-			updateValueBytesProcessed(value, 0, value.length);
-			isAtStartOfTag = true;
-			isAtStartOfLength = false;
-			isReadingValue = false;
-		}
-	}
+  public void updatePreviousLength(int byteCount) {
+    if (state.isEmpty()) { return; }
+    TLVStruct currentObject = state.peek();
 
-	public void updateValueBytesProcessed(byte[] bytes, int offset, int length) {
-		if (state.isEmpty()) { return; }
-		TLVStruct currentObject = state.peek();
-		int bytesLeft = currentObject.getLength() - currentObject.getValueBytesProcessed();
-		if (length > bytesLeft) {
-			throw new IllegalArgumentException("Cannot process " + length + " bytes! Only " + bytesLeft + " bytes left in this TLV object " + currentObject);
-		}
-		currentObject.write(bytes, offset, length);
-		
-		if (currentObject.getValueBytesProcessed() == currentObject.getLength()) {
-			/* Stand back! I'm going to try recursion! Update parent(s)... */
-			state.pop();
-			updateValueBytesProcessed(currentObject.getValue(), 0, currentObject.getLength());
-			isAtStartOfTag = true;
-			isAtStartOfLength = false;
-			isReadingValue = false;
-		} else {
-			/* We already have these values?!? */
-			isAtStartOfTag = false;
-			isAtStartOfLength = false;
-			isReadingValue = true;
-		}
-		
-	}
+    if (currentObject.isLengthSet && currentObject.getLength() == byteCount) { return; }
 
-	public byte[] getValue() {
-		if (state.isEmpty()) {
-			throw new IllegalStateException("Cannot get value yet.");
-		}
-		return state.peek().getValue();
-	}
+    currentObject.setLength(byteCount);
 
-	@SuppressWarnings("unchecked")
-	public Object clone() {
-		return new TLVOutputState((Stack<TLVStruct>)state.clone(), isAtStartOfTag, isAtStartOfLength, isReadingValue);
-	}
+    if (currentObject.getValueBytesProcessed() == currentObject.getLength()) {
+      /* Update parent. */
+      state.pop();
+      byte[] lengthBytes = TLVUtil.getLengthAsBytes(byteCount);
+      byte[] value = currentObject.getValue();
+      updateValueBytesProcessed(lengthBytes, 0, lengthBytes.length);
+      updateValueBytesProcessed(value, 0, value.length);
+      isAtStartOfTag = true;
+      isAtStartOfLength = false;
+      isReadingValue = false;
+    }
+  }
 
-	public String toString() {
-		return state.toString();
-	}
+  public void updateValueBytesProcessed(byte[] bytes, int offset, int length) {
+    if (state.isEmpty()) { return; }
+    TLVStruct currentObject = state.peek();
+    int bytesLeft = currentObject.getLength() - currentObject.getValueBytesProcessed();
+    if (length > bytesLeft) {
+      throw new IllegalArgumentException("Cannot process " + length + " bytes! Only " + bytesLeft + " bytes left in this TLV object " + currentObject);
+    }
+    currentObject.write(bytes, offset, length);
 
-	/*
-	 * TODO: ?? canBeWritten() <==> (state.size() == 1 && state.peek().isLengthSet()
-	 */
-	public boolean canBeWritten() {
-		for (TLVStruct stackFrame: state) {
-			if (!stackFrame.isLengthSet()) { return false; }
-		}
-		return true;
-	}
+    if (currentObject.getValueBytesProcessed() == currentObject.getLength()) {
+      /* Stand back! I'm going to try recursion! Update parent(s)... */
+      state.pop();
+      updateValueBytesProcessed(currentObject.getValue(), 0, currentObject.getLength());
+      isAtStartOfTag = true;
+      isAtStartOfLength = false;
+      isReadingValue = false;
+    } else {
+      /* We already have these values?!? */
+      isAtStartOfTag = false;
+      isAtStartOfLength = false;
+      isReadingValue = true;
+    }
 
-	private class TLVStruct implements Cloneable
-	{
-		private int tag, length;
-		private boolean isLengthSet;
-		private ByteArrayOutputStream value;
+  }
 
-		public TLVStruct(int tag) { this.tag = tag; this.length = Integer.MAX_VALUE; this.isLengthSet = false; this.value = new ByteArrayOutputStream(); }
+  public byte[] getValue() {
+    if (state.isEmpty()) {
+      throw new IllegalStateException("Cannot get value yet.");
+    }
+    return state.peek().getValue();
+  }
 
-		public void setLength(int length) { this.length = length; this.isLengthSet = true; }
+  @SuppressWarnings("unchecked")
+  public Object clone() {
+    return new TLVOutputState((Stack<TLVStruct>)state.clone(), isAtStartOfTag, isAtStartOfLength, isReadingValue);
+  }
 
-		public int getTag() { return tag; }
+  public String toString() {
+    return state.toString();
+  }
 
-		public int getLength() { return length; }
+  /*
+   * TODO: ?? canBeWritten() <==> (state.size() == 1 && state.peek().isLengthSet()
+   */
+  public boolean canBeWritten() {
+    for (TLVStruct stackFrame: state) {
+      if (!stackFrame.isLengthSet()) { return false; }
+    }
+    return true;
+  }
 
-		public boolean isLengthSet() { return isLengthSet; }
+  private class TLVStruct implements Cloneable
+  {
+    private int tag, length;
+    private boolean isLengthSet;
+    private ByteArrayOutputStream value;
 
-		public int getValueBytesProcessed() { return value.size(); }
+    public TLVStruct(int tag) { this.tag = tag; this.length = Integer.MAX_VALUE; this.isLengthSet = false; this.value = new ByteArrayOutputStream(); }
 
-		public byte[] getValue() { return value.toByteArray(); }
+    public void setLength(int length) { this.length = length; this.isLengthSet = true; }
 
-		public void write(byte[] bytes, int offset, int length) { value.write(bytes, offset, length); }
+    public int getTag() { return tag; }
 
-		public Object clone() { TLVStruct copy = new TLVStruct(tag); copy.length = this.length; copy.value = new ByteArrayOutputStream(); try { copy.value.write(this.value.toByteArray()); } catch (IOException ioe) { ioe.printStackTrace(); } return copy; }
+    public int getLength() { return length; }
 
-		public String toString() {
-			byte[] valueBytes = value.toByteArray();
-			return "[TLVStruct " + Integer.toHexString(tag) + ", " + (isLengthSet ? length : "UNDEFINED") +", " + Hex.bytesToHexString(valueBytes) + "(" + valueBytes.length + ") ]";
-		}
-	}
+    public boolean isLengthSet() { return isLengthSet; }
+
+    public int getValueBytesProcessed() { return value.size(); }
+
+    public byte[] getValue() { return value.toByteArray(); }
+
+    public void write(byte[] bytes, int offset, int length) { value.write(bytes, offset, length); }
+
+    public Object clone() { TLVStruct copy = new TLVStruct(tag); copy.length = this.length; copy.value = new ByteArrayOutputStream(); try { copy.value.write(this.value.toByteArray()); } catch (IOException ioe) { ioe.printStackTrace(); } return copy; }
+
+    public String toString() {
+      byte[] valueBytes = value.toByteArray();
+      return "[TLVStruct " + Integer.toHexString(tag) + ", " + (isLengthSet ? length : "UNDEFINED") +", " + Hex.bytesToHexString(valueBytes) + "(" + valueBytes.length + ") ]";
+    }
+  }
 }

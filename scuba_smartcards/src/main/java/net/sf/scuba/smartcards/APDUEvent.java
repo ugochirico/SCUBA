@@ -26,26 +26,26 @@ import java.util.EventObject;
 
 public class APDUEvent extends EventObject {
 
-	private static final long serialVersionUID = 7152351242541552732L;
+  private static final long serialVersionUID = 7152351242541552732L;
 
-	private Object type;
-	private int sequenceNumber;
-	private CommandAPDU capdu;
-	private ResponseAPDU rapdu;
+  private Object type;
+  private int sequenceNumber;
+  private CommandAPDU capdu;
+  private ResponseAPDU rapdu;
 
-	public APDUEvent(Object source, Object type, int sequenceNumber, CommandAPDU capdu, ResponseAPDU rapdu) {
-		super(source);
-		this.type = type;
-		this.sequenceNumber = sequenceNumber;
-		this.capdu = capdu;
-		this.rapdu = rapdu;
-	}
-	
-	public Object getType() { return type; }
-	
-	public int getSequenceNumber() { return sequenceNumber; }
-	
-	public CommandAPDU getCommandAPDU() { return capdu; }
+  public APDUEvent(Object source, Object type, int sequenceNumber, CommandAPDU capdu, ResponseAPDU rapdu) {
+    super(source);
+    this.type = type;
+    this.sequenceNumber = sequenceNumber;
+    this.capdu = capdu;
+    this.rapdu = rapdu;
+  }
 
-	public ResponseAPDU getResponseAPDU() { return rapdu; }
+  public Object getType() { return type; }
+
+  public int getSequenceNumber() { return sequenceNumber; }
+
+  public CommandAPDU getCommandAPDU() { return capdu; }
+
+  public ResponseAPDU getResponseAPDU() { return rapdu; }
 }

@@ -34,10 +34,10 @@ import java.io.OutputStream;
  * @version $Revision$
  */
 public class TLVOutputStream extends OutputStream {
-  
+
   private DataOutputStream outputStream;
   private TLVOutputState state;
-  
+
   /**
    * Constructs a TLV output stream by wrapping an existing output stream.
    *
@@ -47,7 +47,7 @@ public class TLVOutputStream extends OutputStream {
     this.outputStream = outputStream instanceof DataOutputStream ? (DataOutputStream)outputStream : new DataOutputStream(outputStream);
     this.state = new TLVOutputState();
   }
-  
+
   /**
    * Writes a tag to the output stream (if TLV state allows it).
    * 
@@ -77,7 +77,7 @@ public class TLVOutputStream extends OutputStream {
       outputStream.write(lengthAsBytes);
     }
   }
-  
+
   /**
    * Writes a value at once.
    * If no tag was previously written, an exception is thrown.
@@ -99,7 +99,7 @@ public class TLVOutputStream extends OutputStream {
       state.updatePreviousLength(value.length);
     }
   }
-  
+
   /**
    * Writes the specified byte to this output stream.
    * Note that this can only be used for writing value bytes and
@@ -112,7 +112,7 @@ public class TLVOutputStream extends OutputStream {
   public void write(int b) throws IOException {
     write(new byte[]{ (byte)b }, 0, 1);
   }
-  
+
   /**
    * Writes the specified bytes to this output stream.
    * Note that this can only be used for writing value bytes and
@@ -125,7 +125,7 @@ public class TLVOutputStream extends OutputStream {
   public void write(byte[] bytes) throws IOException {
     write(bytes, 0, bytes.length);
   }
-  
+
   /**
    * Writes the specified number of bytes to this output stream starting at the
    * specified offset.
@@ -150,7 +150,7 @@ public class TLVOutputStream extends OutputStream {
       outputStream.write(bytes, offset, length);
     }
   }
-  
+
   /**
    * Marks the end of the value written thus far. This will adjust the length and
    * write the buffer to the underlying output stream.
@@ -171,7 +171,7 @@ public class TLVOutputStream extends OutputStream {
       outputStream.write(bufferedValueBytes);
     }
   }
-  
+
   /**
    * Flushes the underlying output stream. Note that this does not
    * flush the value buffer if the current value has not been completed.
@@ -181,7 +181,7 @@ public class TLVOutputStream extends OutputStream {
   public void flush() throws IOException {
     outputStream.flush();
   }
-  
+
   /**
    * Closes this output stream and releases any system resources
    * associated with this stream.
